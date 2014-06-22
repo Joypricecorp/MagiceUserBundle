@@ -19,6 +19,7 @@
     "autoload": {
         "psr-4": { "Magice\\Bundle\\UserBundle\\": "" }
     },
+    "target-dir": "Magice/Bundle/UserBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "master-dev"
