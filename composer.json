@@ -4,7 +4,7 @@
     "description": "User management integration for Symfony2 applications.",
     "keywords": ["user"],
     "homepage": "https://github.com/Joypricecorp/MagiceUserBundle",
-    "license": "ツ Joyprice Corporation Ltd.",
+    "license": "MIT",
     "authors": [
         {
             "name":  "ツ Liverbool",
