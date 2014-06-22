@@ -13,8 +13,10 @@
     ],
     "require": {
         "php": ">=5.3.3",
-
-        "friendsofsymfony/user-bundle": "2.0.*@dev"
+        "hwi/oauth-bundle":                 "0.4.*@dev",
+        "friendsofsymfony/user-bundle":     "2.0.*@dev",
+        "stof/doctrine-extensions-bundle":  "~1.1@dev",
+        "misd/phone-number-bundle":         "~1.0"
     },
     "autoload": {
         "psr-0": { "Magice\\Bundle\\UserBundle\\": "" }
