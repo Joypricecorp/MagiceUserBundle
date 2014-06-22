@@ -17,7 +17,7 @@
         "friendsofsymfony/user-bundle": "2.0.*@dev"
     },
     "autoload": {
-        "psr-4": { "Magice\\Bundle\\UserBundle\\": "" }
+        "psr-0": { "Magice\\Bundle\\UserBundle\\": "" }
     },
     "target-dir": "Magice/Bundle/UserBundle",
     "extra": {
