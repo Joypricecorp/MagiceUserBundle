@@ -1,0 +1,28 @@
+{
+    "name": "magice/user-bundle",
+    "type": "symfony-bundle",
+    "description": "User management integration for Symfony2 applications.",
+    "keywords": ["user"],
+    "homepage": "https://github.com/Joypricecorp/MagiceUserBundle",
+    "license": "ツ Joyprice Corporation Ltd.",
+    "authors": [
+        {
+            "name":  "ツ Liverbool",
+            "email": "nukboon@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+
+        "friendsofsymfony/user-bundle":        "~2.0@dev"
+    },
+    "autoload": {
+        "psr-4": { "Magice\\Bundle\\UserBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}
