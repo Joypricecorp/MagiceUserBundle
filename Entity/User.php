@@ -48,8 +48,8 @@ class User extends BaseUser
         parent::__construct();
 
         $this->connects = new ArrayCollection();
-        $this->address  = new ArrayCollection();
-        $this->bankings = new ArrayCollection();
+        //$this->address  = new ArrayCollection();
+        //$this->bankings = new ArrayCollection();
     }
 
     /**
@@ -65,7 +65,7 @@ class User extends BaseUser
      * @param string  $provider
      * @param UserConnect $connect
      *
-     * @return User
+     * @return $this
      */
     public function setConnect($provider, UserConnect $connect)
     {

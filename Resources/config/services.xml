@@ -4,17 +4,55 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
-    <parameters>
-        <parameter key="magice_user.example.class">Magice\Bundle\UserBundle\Example</parameter>
-    </parameters>
+	<parameters>
+		<parameter key="magice.class.user.provider">Magice\Bundle\UserBundle\Entity\UserProvider</parameter>
+		<parameter key="magice.class.user.manager">Magice\Bundle\UserBundle\Entity\UserManager</parameter>
+		<parameter key="magice.class.user.entity">Magice\Bundle\UserBundle\Entity\User</parameter>
+		<parameter key="magice.class.user.repository">Magice\Bundle\UserBundle\Entity\UserRepository</parameter>
+		<parameter key="magice.class.user.mailer.twig_swift">Magice\Bundle\UserBundle\Mailer\TwigSwift</parameter>
+		<parameter key="magice.class.user.listener.connect_new_email_notify">Magice\Bundle\UserBundle\EventListener\ConnectNewEmailNotify</parameter>
+	</parameters>
 
-    <services>
-        <service id="magice_user.example" class="%magice_user.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
-    </services>
-    -->
+	<services>
+		<service id="mg.user.repository" class="%magice.class.user.repository%" factory-class="%magice.class.user.repository%" factory-method="create">
+			<argument type="service" id="doctrine.orm.default_entity_manager"/>
+			<argument>%magice.class.user.entity%</argument>
+			<argument type="service" id="service_container"/>
+		</service>
+
+		<service id="mg.user.provider" class="%magice.class.user.provider%">
+			<argument type="service" id="mg.user.manager"/>
+			<argument type="service" id="service_container"/>
+		</service>
+
+		<service id="mg.user.manager" class="%magice.class.user.manager%" public="false">
+			<argument type="service" id="security.encoder_factory"/>
+			<argument type="service" id="fos_user.util.username_canonicalizer"/>
+			<argument type="service" id="fos_user.util.email_canonicalizer"/>
+			<argument type="service" id="fos_user.entity_manager"/>
+			<argument>%fos_user.model.user.class%</argument>
+		</service>
+
+		<service id="mg.user.mailer.twig_swift" class="%magice.class.user.mailer.twig_swift%" public="false">
+			<argument type="service" id="mailer"/>
+			<argument type="service" id="router"/>
+			<argument type="service" id="twig"/>
+			<argument type="collection">
+				<argument key="template" type="collection">
+					<argument key="connect_new">MagiceUserBundle:emails:connect_new.txt.twig</argument>
+				</argument>
+				<argument key="from_mail" type="collection">
+					<argument key="mail">%mailer_from_mail%</argument>
+					<argument key="name">%mailer_from_name%</argument>
+				</argument>
+				<argument key="site_name">%site_name%</argument>
+			</argument>
+		</service>
+
+		<service id="mg.user.listener.connect_new_email_notify" class="%magice.class.user.listener.connect_new_email_notify%">
+			<tag name="kernel.event_subscriber"/>
+			<argument type="service" id="mg.user.mailer.twig_swift"/>
+		</service>
+	</services>
+
 </container>

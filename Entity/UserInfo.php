@@ -13,7 +13,7 @@ use libphonenumber\PhoneNumber;
 
 /**
  * @ORM\Table(name="fos_user_info")
- * @ORM\Entity(repositoryClass="Magice\Bundle\UserBundle\Entity\User\InfoRepository")
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @JMS\ExclusionPolicy("NONE")
  */
