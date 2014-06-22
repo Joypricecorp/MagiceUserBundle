@@ -11,6 +11,7 @@
             "email": "nukboon@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "hwi/oauth-bundle":                 "0.4.*@dev",
