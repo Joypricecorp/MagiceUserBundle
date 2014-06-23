@@ -5,34 +5,39 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
 	<parameters>
-		<parameter key="magice.user.registration.success_target_route">mg_user_register_confirmed</parameter>
-		<parameter key="magice.mailer.site_name">magice.mailer.site_name</parameter>
-		<parameter key="magice.mailer.from_mail">magice.mailer.from_mail</parameter>
-		<parameter key="magice.mailer.from_name">magice.mailer.from_name</parameter>
-		<parameter key="magice.class.user.form.registration">Magice\Bundle\UserBundle\Form\RegistrationType</parameter>
-		<parameter key="magice.class.user.provider">Magice\Bundle\UserBundle\Entity\UserProvider</parameter>
-		<parameter key="magice.class.user.manager">Magice\Bundle\UserBundle\Entity\UserManager</parameter>
-		<parameter key="magice.class.user.entity">Magice\Bundle\UserBundle\Entity\User</parameter>
-		<parameter key="magice.class.user.repository">Magice\Bundle\UserBundle\Entity\UserRepository</parameter>
-		<parameter key="magice.class.user.mailer.twig_swift">Magice\Bundle\UserBundle\Mailer\TwigSwift</parameter>
-		<parameter key="magice.class.user.listener.connect_new_email_notify">Magice\Bundle\UserBundle\EventListener\ConnectNewEmailNotify</parameter>
-		<parameter key="magice.class.user.listener.registration.success">Magice\Bundle\UserBundle\EventListener\RegistrationSuccess</parameter>
-		<parameter key="magice.class.user.listener.already_logedin_redirect">Magice\Bundle\UserBundle\EventListener\AlreadyLogedInRedirect</parameter>
+		<parameter key="magice.user.already_logedin_redirect_routes" type="collection">
+			<parameter>mg_user_login</parameter>
+			<parameter>mg_user_register</parameter>
+			<parameter>mg_user_register_confirmed</parameter>
+		</parameter>
+		<parameter key="magice.user.already_logedin_redirect_target"></parameter>
+		<parameter key="magice.user.registration.success_target_route"></parameter>
+		<parameter key="magice.user.resetting.success_target_route"></parameter>
+		<parameter key="magice.user.class.mailer">Magice\Bundle\UserBundle\Mailer\TwigSwiftMailer</parameter>
+		<parameter key="magice.user.class.form.registration">Magice\Bundle\UserBundle\Form\RegistrationType</parameter>
+		<parameter key="magice.user.class.provider">Magice\Bundle\UserBundle\Entity\UserProvider</parameter>
+		<parameter key="magice.user.class.manager">Magice\Bundle\UserBundle\Entity\UserManager</parameter>
+		<parameter key="magice.user.class.entity">Magice\Bundle\UserBundle\Entity\User</parameter>
+		<parameter key="magice.user.class.repository">Magice\Bundle\UserBundle\Entity\UserRepository</parameter>
+		<parameter key="magice.user.class.mailer.twig_swift">Magice\Bundle\UserBundle\Mailer\TwigSwift</parameter>
+		<parameter key="magice.user.class.listener.resetting.success">Magice\Bundle\UserBundle\EventListener\ResettingSuccess</parameter>
+		<parameter key="magice.user.class.listener.registration.success">Magice\Bundle\UserBundle\EventListener\RegistrationSuccess</parameter>
+		<parameter key="magice.user.class.listener.already_logedin_redirect">Magice\Bundle\UserBundle\EventListener\AlreadyLogedInRedirect</parameter>
 	</parameters>
 
 	<services>
-		<service id="mg.user.repository" class="%magice.class.user.repository%" factory-class="%magice.class.user.repository%" factory-method="create">
+		<service id="mg.user.repository" class="%magice.user.class.repository%" factory-class="%magice.user.class.repository%" factory-method="create">
 			<argument type="service" id="doctrine.orm.default_entity_manager"/>
-			<argument>%magice.class.user.entity%</argument>
+			<argument>%magice.user.class.entity%</argument>
 			<argument type="service" id="service_container"/>
 		</service>
 
-		<service id="mg.user.provider" class="%magice.class.user.provider%">
+		<service id="mg.user.provider" class="%magice.user.class.provider%">
 			<argument type="service" id="mg.user.manager"/>
 			<argument type="service" id="service_container"/>
 		</service>
 
-		<service id="mg.user.manager" class="%magice.class.user.manager%" public="false">
+		<service id="mg.user.manager" class="%magice.user.class.manager%" public="false">
 			<argument type="service" id="security.encoder_factory"/>
 			<argument type="service" id="fos_user.util.username_canonicalizer"/>
 			<argument type="service" id="fos_user.util.email_canonicalizer"/>
@@ -40,40 +45,45 @@
 			<argument>%fos_user.model.user.class%</argument>
 		</service>
 
-		<service id="mg.user.mailer.twig_swift" class="%magice.class.user.mailer.twig_swift%" public="false">
-			<argument type="service" id="mailer"/>
-			<argument type="service" id="router"/>
-			<argument type="service" id="twig"/>
-			<argument type="collection">
-				<argument key="template" type="collection">
-					<argument key="connect_new">MagiceUserBundle:emails:connect_new.txt.twig</argument>
-				</argument>
-				<argument key="from_mail" type="collection">
-					<argument key="mail">%magice.mailer.from_mail%</argument>
-					<argument key="name">%magice.mailer.from_name%</argument>
-				</argument>
-				<argument key="site_name">%magice.mailer.site_name%</argument>
-			</argument>
-		</service>
-
-		<service id="mg.user.listener.connect_new_email_notify" class="%magice.class.user.listener.connect_new_email_notify%">
+		<service id="mg.user.listener.resetting.success" class="%magice.user.class.listener.resetting.success%">
 			<tag name="kernel.event_subscriber"/>
-			<argument type="service" id="mg.user.mailer.twig_swift"/>
+			<argument type="service" id="router"/>
+			<argument>%magice.user.resetting.success_target_route%</argument>
 		</service>
 
-		<service id="mg.user.listener.registration.success" class="%magice.class.user.listener.registration.success%">
+		<service id="mg.user.listener.registration.success" class="%magice.user.class.listener.registration.success%">
 			<tag name="kernel.event_subscriber"/>
 			<argument type="service" id="router"/>
 			<argument>%magice.user.registration.success_target_route%</argument>
 		</service>
-		<service id="mg.user.listener.already_logedin_redirect" class="%magice.class.user.listener.already_logedin_redirect%">
+
+		<service id="mg.user.listener.already_logedin_redirect" class="%magice.user.class.listener.already_logedin_redirect%">
 			<tag name="kernel.event_subscriber"/>
+			<argument type="service" id="security.context"/>
 			<argument type="service" id="router"/>
+			<argument>%magice.user.already_logedin_redirect_target%</argument>
+			<argument>%magice.user.already_logedin_redirect_routes%</argument>
 		</service>
 
-		<service id="mg.user.form.registration.type" class="%magice.class.user.form.registration%">
+		<service id="mg.user.form.registration.type" class="%magice.user.class.form.registration%">
 			<tag name="form.type" alias="mg_user_form_registration_type" />
 			<argument>%fos_user.model.user.class%</argument>
+		</service>
+
+		<service id="mg.user.mailer.twig_swift" class="%magice.user.class.mailer%" public="false">
+			<argument type="service" id="mailer" />
+			<argument type="service" id="router" />
+			<argument type="service" id="twig" />
+			<argument type="collection">
+				<argument key="template" type="collection">
+					<argument key="confirmation">%fos_user.registration.confirmation.template%</argument>
+					<argument key="resetting">%fos_user.resetting.email.template%</argument>
+				</argument>
+				<argument key="from_email" type="collection">
+					<argument key="confirmation">%fos_user.registration.confirmation.from_email%</argument>
+					<argument key="resetting">%fos_user.resetting.email.from_email%</argument>
+				</argument>
+			</argument>
 		</service>
 	</services>
 

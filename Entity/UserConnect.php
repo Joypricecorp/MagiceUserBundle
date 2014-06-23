@@ -30,12 +30,6 @@ class UserConnect
     private $pid;
 
     /**
-     * @var int provider customer id
-     * @ORM\Column(name="cus_id", type="bigint", nullable=true)
-     */
-    private $cid;
-
-    /**
      * @var string
      * @ORM\Column(name="username", type="string", nullable=true)
      */
@@ -419,25 +413,5 @@ class UserConnect
     public function getBirthday()
     {
         return $this->birthday;
-    }
-
-    /**
-     * @param int $cid
-     *
-     * @return $this
-     */
-    public function setCid($cid)
-    {
-        $this->cid = $cid;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCid()
-    {
-        return $this->cid;
     }
 }

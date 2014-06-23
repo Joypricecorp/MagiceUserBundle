@@ -17,7 +17,7 @@
         "hwi/oauth-bundle":                 "0.4.*@dev",
         "friendsofsymfony/user-bundle":     "2.0.*@dev",
         "stof/doctrine-extensions-bundle":  "~1.1",
-        "misd/phone-number-bundle":         "~1.0"
+        "magice/validator":                 "0.1"
     },
     "autoload": {
         "psr-0": { "Magice\\Bundle\\UserBundle\\": "" }

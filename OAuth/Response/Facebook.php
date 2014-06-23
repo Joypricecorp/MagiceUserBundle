@@ -10,7 +10,7 @@ class Facebook extends PathUserResponse implements ResponseInterface
         'nickname'            => 'username',
         'realname'            => 'name',
         'email'               => 'email',
-        'username'            => 'username',
+        'username'            => 'email',
         'profilepicture'      => null,
         'access_token'        => 'access_token',
         'access_token_expire' => 'access_token_expire',

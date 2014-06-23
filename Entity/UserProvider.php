@@ -156,9 +156,9 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
     /**
      * @param ResponseInterface $response
      * @param User              $user
-     * @param Connect           $connect
+     * @param UserConnect       $connect
      */
-    protected function updateConnect(ResponseInterface $response, User $user, Connect $connect = null)
+    protected function updateConnect(ResponseInterface $response, User $user, UserConnect $connect = null)
     {
         $connect = $connect ? : new UserConnect();
 

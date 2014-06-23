@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class RegistrationSuccess implements EventSubscriberInterface
+class ResettingSuccess implements EventSubscriberInterface
 {
     private $router;
     private $target;
@@ -26,11 +26,11 @@ class RegistrationSuccess implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            FOSUserEvents::REGISTRATION_SUCCESS => 'onRegisterSuccess',
+            FOSUserEvents::RESETTING_RESET_SUCCESS => 'onResettingSuccess',
         );
     }
 
-    public function onRegisterSuccess(FormEvent $event)
+    public function onResettingSuccess(FormEvent $event)
     {
         // route or url
         if (empty($this->target)) {

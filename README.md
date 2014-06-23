@@ -47,6 +47,7 @@ hwi_oauth:
     resource_owners:
         facebook:
             type:                facebook
+            user_response_class: Magice\Bundle\UserBundle\OAuth\Response\Facebook
             client_id:           "687365851324174"
             client_secret:       "0960b2ae15835b33b48f50c1b1415fb7"
             scope:               "basic_info,email,user_birthday,user_likes,user_location,publish_stream"
@@ -57,23 +58,15 @@ fos_user:
     user_class: Magice\Bundle\UserBundle\Entity\User
     group:
         group_class: Magice\Bundle\UserBundle\Entity\Group
+    service:
+        mailer: mg.user.mailer.twig_swift
     registration:
         form:
             type: mg_user_form_registration_type
             name: mg_user_form_registration_type
-            validation_groups: [ Register, Default ]
     from_email:
         address: noreply@joyprice.com
         sender_name: Joyprice Notify Mailer
-
-
-jms_serializer:
-    metadata:
-        auto_detection: true
-        directories:
-            FOSUserBundle:
-                namespace_prefix: "FOS\UserBundle"
-                path: "@MagiceUserBundle/Resources/config/serializer/fos"
 
 twig:
     globals:
@@ -103,7 +96,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
     firewalls:
         ....
@@ -112,6 +105,8 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
+                check_path: /user/login_check
+                login_path: /user/login
             oauth:
                 resource_owners:
                     facebook: "/user/login/check-facebook"
@@ -123,7 +118,8 @@ security:
                     #this is my custom user provider, created from FOSUBUserProvider - will manage the
                     #automatic user registration on your site, with data from the provider (facebook. google, etc.)
                     service: mg.user.provider
-            logout: true
+            logout:
+                path: /user/logout
             anonymous: true
 
         login:

@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+	<!--
+	See: https://github.com/symfony/symfony/issues/3224#issuecomment-21236079
+	-->
+
+	<class name="FOS\UserBundle\Model\User">
+		<!-- Move validation/orm.xml to here -->
+		<constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+			<option name="fields">usernameCanonical</option>
+			<option name="errorPath">username</option>
+			<option name="message">fos_user.username.already_used</option>
+			<option name="groups">
+				<value>Register</value>
+				<value>Profile</value>
+			</option>
+		</constraint>
+
+		<constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+			<option name="fields">emailCanonical</option>
+			<option name="errorPath">email</option>
+			<option name="message">fos_user.email.already_used</option>
+			<option name="groups">
+				<value>Register</value>
+				<value>Profile</value>
+			</option>
+		</constraint>
+
+		<property name="username">
+			<constraint name="Magice\Validator\Constraints\Username">
+				<option name="reservedWords">admin,staff,joyprice,support</option>
+				<option name="min">3</option>
+				<option name="max">20</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+			<constraint name="NotBlank">
+				<option name="message">fos_user.username.blank</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+			<constraint name="Length">
+				<option name="min">3</option>
+				<option name="minMessage">fos_user.username.short</option>
+				<option name="max">20</option>
+				<option name="maxMessage">fos_user.username.long</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+		</property>
+
+		<property name="email">
+			<constraint name="NotBlank">
+				<option name="message">fos_user.email.blank</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+			<constraint name="Length">
+				<option name="min">2</option>
+				<option name="minMessage">fos_user.email.short</option>
+				<option name="max">254</option>
+				<option name="maxMessage">fos_user.email.long</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+			<constraint name="Email">
+				<option name="message">fos_user.email.invalid</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+		</property>
+
+		<property name="plainPassword">
+			<constraint name="Magice\Validator\Constraints\Password">
+				<option name="min">4</option>
+				<option name="max">4096</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+				</option>
+			</constraint>
+			<constraint name="NotBlank">
+				<option name="message">fos_user.password.blank</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>ResetPassword</value>
+					<value>ChangePassword</value>
+				</option>
+			</constraint>
+			<constraint name="Length">
+				<option name="min">4</option>
+				<option name="max">4096</option>
+				<option name="minMessage">fos_user.password.short</option>
+				<option name="groups">
+					<value>Register</value>
+					<value>Profile</value>
+					<value>ResetPassword</value>
+					<value>ChangePassword</value>
+				</option>
+			</constraint>
+		</property>
+	</class>
+
+	<class name="FOS\UserBundle\Model\Group">
+		<property name="name">
+			<constraint name="NotBlank">
+				<option name="message">fos_user.group.blank</option>
+				<option name="groups">Register</option>
+			</constraint>
+			<constraint name="Length">
+				<option name="min">2</option>
+				<option name="minMessage">fos_user.group.short</option>
+				<option name="max">255</option>
+				<option name="maxMessage">fos_user.group.long</option>
+				<option name="groups">Register</option>
+			</constraint>
+		</property>
+	</class>
+
+</constraint-mapping>

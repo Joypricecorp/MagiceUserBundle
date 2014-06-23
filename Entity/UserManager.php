@@ -56,6 +56,6 @@ class UserManager extends BaseUserManger implements UserConnectManagerInterface
 
     public static function getUserConnectClass()
     {
-        return 'Magice\Bundle\UserBundle\Entity\Connect';
+        return 'Magice\Bundle\UserBundle\Entity\UserConnect';
     }
 }

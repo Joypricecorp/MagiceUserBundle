@@ -4,6 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
+	<route id="mg_user_test" pattern="/test">
+		<default key="_controller">FOSUserBundle:Resetting:test</default>
+	</route>
+
 	<route id="mg_user_register" pattern="/register">
 		<default key="_controller">FOSUserBundle:Registration:register</default>
 	</route>
