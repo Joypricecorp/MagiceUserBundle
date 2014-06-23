@@ -2,16 +2,20 @@
 namespace Magice\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user_connect",
- *      uniqueConstraints={@ORM\UniqueConstraint(columns={"cnn_user_id", "cnn_provider"})}
+ * @ORM\Table(name="mg_user_connect",
+ *      uniqueConstraints={@ORM\UniqueConstraint(columns={"user_id", "provider"})}
  * )
  * @ORM\HasLifecycleCallbacks
  */
 class UserConnect
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -21,104 +25,91 @@ class UserConnect
 
     /**
      * @var int provider user id
-     * @ORM\Column(name="cnn_pu_id", type="bigint", nullable=false)
+     * @ORM\Column(name="pu_id", type="bigint", nullable=false)
      */
     private $pid;
 
     /**
      * @var int provider customer id
-     * @ORM\Column(name="cnn_cus_id", type="bigint", nullable=true)
+     * @ORM\Column(name="cus_id", type="bigint", nullable=true)
      */
     private $cid;
 
     /**
      * @var string
-     * @ORM\Column(name="cnn_username", type="string", nullable=true)
+     * @ORM\Column(name="username", type="string", nullable=true)
      */
     private $username;
 
     /**
      * @var string fullname
-     * @ORM\Column(name="cnn_fullname", type="string", nullable=true)
+     * @ORM\Column(name="fullname", type="string", nullable=true)
      */
     private $fullname;
 
     /**
      * @var string
-     * @ORM\Column(name="cnn_nickname", type="string", nullable=true)
+     * @ORM\Column(name="nickname", type="string", nullable=true)
      */
     private $nickname;
 
     /**
-     * @ORM\Column(name="cnn_access_token", type="string", length=255, nullable=true)
+     * @ORM\Column(name="access_token", type="string", length=255, nullable=true)
      */
     private $accessToken;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="cnn_access_token_expire", type="datetime")
+     * @ORM\Column(name="access_token_expire", type="datetime")
      */
     private $accessTokenExpire;
 
     /**
-     * @ORM\Column(name="cnn_email", type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true, unique=true)
      */
     private $email;
 
     /**
      * @var string avatar url
-     * @ORM\Column(name="cnn_avartar", type="string", nullable=true)
+     * @ORM\Column(name="avartar", type="string", nullable=true)
      */
     private $avatar;
 
     /**
      * @var string profile url
-     * @ORM\Column(name="cnn_profile", type="string", nullable=true)
+     * @ORM\Column(name="profile", type="string", nullable=true)
      */
     private $profile;
 
     /**
-     * @ORM\Column(name="cnn_locale", type="string", length=5, nullable=true)
+     * @ORM\Column(name="locale", type="string", length=5, nullable=true)
      */
     private $locale;
 
     /**
-     * @ORM\Column(name="cnn_location", type="string", length=50, nullable=true)
+     * @ORM\Column(name="location", type="string", length=50, nullable=true)
      */
     private $location;
 
     /**
-     * @ORM\Column(name="cnn_gender", type="string", length=1, nullable=true)
+     * @ORM\Column(name="gender", type="string", length=1, nullable=true)
      */
     private $gender;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="cnn_birthday", type="date", nullable=true)
+     * @ORM\Column(name="birthday", type="date", nullable=true)
      */
     private $birthday;
 
     /**
-     * @ORM\Column(name="cnn_provider", type="string", length=20, nullable=true)
+     * @ORM\Column(name="provider", type="string", length=20, nullable=true)
      */
     private $provider;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="cnn_date_create", type="datetime")
-     */
-    private $dateCreate;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="cnn_date_update", type="datetime")
-     */
-    private $dateUpdate;
-
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Magice\Bundle\UserBundle\Entity\User", inversedBy="connects")
-     * @ORM\JoinColumn(name="cnn_user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
@@ -371,46 +362,6 @@ class UserConnect
     }
 
     /**
-     * @param \DateTime $dateCreate
-     *
-     * @return $this
-     */
-    public function setDateCreate($dateCreate)
-    {
-        $this->dateCreate = $dateCreate;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateCreate()
-    {
-        return $this->dateCreate;
-    }
-
-    /**
-     * @param \DateTime $dateUpdate
-     *
-     * @return $this
-     */
-    public function setDateUpdate($dateUpdate)
-    {
-        $this->dateUpdate = $dateUpdate;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateUpdate()
-    {
-        return $this->dateUpdate;
-    }
-
-    /**
      * @param string $fullname
      *
      * @return $this
@@ -488,29 +439,5 @@ class UserConnect
     public function getCid()
     {
         return $this->cid;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        if (empty($this->dateCreate)) {
-            $this->setDateCreate(new \DateTime());
-        }
-
-        if (empty($this->dateUpdate)) {
-            $this->setDateUpdate(new \DateTime());
-        }
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function onPreUpdate()
-    {
-        if (empty($this->dateUpdate)) {
-            $this->setDateUpdate(new \DateTime());
-        }
     }
 }

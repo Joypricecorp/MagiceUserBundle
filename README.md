@@ -11,6 +11,10 @@ framework:
     translator: ~
 
 doctrine:
+    dbal:
+        types:
+            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
+
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
@@ -55,8 +59,8 @@ fos_user:
         group_class: Magice\Bundle\UserBundle\Entity\Group
     registration:
         form:
-            type: mg_user_form_registration
-            name: mg_user_form_registration
+            type: mg_user_form_registration_type
+            name: mg_user_form_registration_type
             validation_groups: [ Register, Default ]
     from_email:
         address: noreply@joyprice.com
@@ -70,6 +74,11 @@ jms_serializer:
             FOSUserBundle:
                 namespace_prefix: "FOS\UserBundle"
                 path: "@MagiceUserBundle/Resources/config/serializer/fos"
+
+twig:
+    globals:
+        img:
+            blank: data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7
 ```
 
 ```
@@ -97,13 +106,35 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
+        ....
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       true
-            anonymous:    true
+            oauth:
+                resource_owners:
+                    facebook: "/user/login/check-facebook"
+                    google: "/user/login/check-google"
+                login_path: /user/login
+                failure_path: /user/login
+
+                oauth_user_provider:
+                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
+                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
+                    service: mg.user.provider
+            logout: true
+            anonymous: true
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

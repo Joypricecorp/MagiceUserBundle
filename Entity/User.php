@@ -29,12 +29,12 @@ class User extends BaseUser
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Magice\Bundle\UserBundle\Entity\Connect", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Magice\Bundle\UserBundle\Entity\UserConnect", mappedBy="user", cascade={"persist"})
      */
     protected $connects;
 
     /**
-     * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\User\Info", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\UserInfo", mappedBy="user", cascade={"persist"})
      */
     protected $info;
 
@@ -116,11 +116,11 @@ class User extends BaseUser
     }
 
     /**
-     * @param Info $info
+     * @param UserInfo $info
      *
      * @return $this
      */
-    public function setInfo(Info $info)
+    public function setInfo(UserInfo $info)
     {
         $this->info = $info;
 
@@ -128,7 +128,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return Info
+     * @return UserInfo
      */
     public function getInfo()
     {

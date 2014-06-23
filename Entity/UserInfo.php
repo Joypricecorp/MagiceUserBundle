@@ -2,22 +2,17 @@
 
 namespace Magice\Bundle\UserBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Magice\Orm\Doctrine\Types\Phone\Phone;
-use JMS\Serializer\Annotation as JMS;
-// Now PhoneNumber have no Interface
 use libphonenumber\PhoneNumber;
 
 /**
- * @ORM\Table(name="fos_user_info")
+ * @ORM\Table(name="mg_user_info")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @JMS\ExclusionPolicy("NONE")
  */
-class Info
+class UserInfo
 {
     const YEAR_BC_DIFF = 543;
     const YEAR_MIN_AGE = 13;
@@ -28,85 +23,85 @@ class Info
     /**
      * @var integer
      * @ORM\Id
-     * @ORM\Column(name="inf_id", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
-     * @ORM\Column(name="inf_gender", type="string", length=1)
+     * @ORM\Column(name="gender", type="string", length=1)
      */
     private $gender;
 
     /**
      * @var string
-     * @ORM\Column(name="inf_firstname", type="string", length=50)
+     * @ORM\Column(name="firstname", type="string", length=50)
      */
     private $firstname;
 
     /**
      * @var string
-     * @ORM\Column(name="inf_lastname", type="string", length=50)
+     * @ORM\Column(name="lastname", type="string", length=50)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(name="inf_display_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="display_name", type="string", length=50, nullable=true)
      */
     private $displayName;
 
     /**
-     * @ORM\Column(name="inf_avatar", type="string", length=255, nullable=true)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
     private $avatar;
 
     /**
      * @var string
-     * @ORM\Column(name="inf_personal_id", type="string", length=13, nullable=true)
+     * @ORM\Column(name="personal_id", type="string", length=13, nullable=true)
      */
     private $personalId;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="inf_birth_day", type="date", nullable=true)
+     * @ORM\Column(name="birth_day", type="date", nullable=true)
      */
     private $birthDay;
 
     /**
-     * @var Phone
-     * @ORM\Column(name="inf_mobile", type="phone", nullable=true)
+     * @var PhoneNumber
+     * @ORM\Column(name="mobile", type="phone_number", nullable=true)
      */
     private $mobile;
 
     /**
-     * @var Phone
-     * @ORM\Column(name="inf_tel_home", type="phone", nullable=true)
+     * @var PhoneNumber
+     * @ORM\Column(name="tel_home", type="phone_number", nullable=true)
      */
     private $telHome;
 
     /**
-     * @var Phone
-     * @ORM\Column(name="inf_tel_work", type="phone", nullable=true)
+     * @var PhoneNumber
+     * @ORM\Column(name="tel_work", type="phone_number", nullable=true)
      */
     private $telWork;
 
     /**
      * @var string
-     * @ORM\Column(name="inf_tel_work_ext", type="string", length=5, nullable=true)
+     * @ORM\Column(name="tel_work_ext", type="string", length=5, nullable=true)
      */
     private $telWorkExt;
 
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\User", inversedBy="info")
-     * @ORM\JoinColumn(name="inf_user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $user;
 
     /**
      * @var string
-     * @JMS\Accessor(getter="getFullname")
+     * for JMS\Accessor(getter="getFullname")
      */
     private $fullname;
 
@@ -267,7 +262,7 @@ class Info
 
     /**
      * Get infmobile
-     * @return Phone
+     * @return PhoneNumber
      */
     public function getMobile()
     {
@@ -290,7 +285,7 @@ class Info
 
     /**
      * Get inftelHome
-     * @return Phone
+     * @return PhoneNumber
      */
     public function getTelHome()
     {
@@ -313,7 +308,7 @@ class Info
 
     /**
      * Get inftelWork
-     * @return Phone
+     * @return PhoneNumber
      */
     public function getTelWork()
     {

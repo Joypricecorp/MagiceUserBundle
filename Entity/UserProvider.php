@@ -1,9 +1,7 @@
 <?php
 namespace Magice\Bundle\UserBundle\Entity;
 
-use Magice\Bundle\UserBundle\Entity\User\Info;
-use Magice\Bundle\UserBundle\Event\Event;
-use Magice\Bundle\UserBundle\Event\ConnectSuccess;
+use Magice\Bundle\UserBundle\Event\Connect;
 use Magice\Bundle\UserBundle\OAuth\Response\ResponseInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
@@ -16,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserProvider extends FOSUBUserProvider implements UserProviderInterface
 {
     /**
-     * @var UserManagerOAuthConnectInterface|UserManagerInterface
+     * @var UserConnectManagerInterface|UserManagerInterface
      */
     protected $userManager;
 
@@ -28,10 +26,10 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
     /**
      * Constructor.
      *
-     * @param UserManagerOAuthConnectInterface $userManager FOSUB user provider.
-     * @param ContainerInterface               $container
+     * @param UserConnectManagerInterface $userManager FOSUB user provider.
+     * @param ContainerInterface          $container
      */
-    public function __construct(UserManagerOAuthConnectInterface $userManager, ContainerInterface $container)
+    public function __construct(UserConnectManagerInterface $userManager, ContainerInterface $container)
     {
         $this->userManager = $userManager;
         $this->container   = $container;
@@ -60,11 +58,11 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
          * @var EventDispatcherInterface                $dispatcher
          */
         $provider = $response->getResourceOwner()->getName();
-        $user     = $this->userManager->findUserOAuthConnectByEmail($provider, $response->getEmail());
+        $user     = $this->userManager->findUserConnectByEmail($provider, $response->getEmail());
 
         // try to find by username
         if (null === $user) {
-            $user = $this->userManager->findUserOAuthConnectByUsername($provider, $response->getUsername());
+            $user = $this->userManager->findUserConnectByUsername($provider, $response->getUsername());
         }
 
         // try to find form user table
@@ -83,10 +81,10 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
             $this->updateConnect($response, $user, null);
             $this->userManager->updateUser($user);
 
-            $event = new ConnectSuccess($user, $response);
+            $event = new Connect($user, $response);
 
             $dispatcher = $this->container->get('event_dispatcher');
-            $dispatcher->dispatch(Event::ON_NEWCONNECTED, $event);
+            $dispatcher->dispatch(Connect::ON_CONNECT_NEW, $event);
 
             return $user;
         }
@@ -162,7 +160,7 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
      */
     protected function updateConnect(ResponseInterface $response, User $user, Connect $connect = null)
     {
-        $connect = $connect ? : new Connect();
+        $connect = $connect ? : new UserConnect();
 
         $connect
             ->setProvider($response->getProvider())
@@ -200,7 +198,7 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
             return;
         }
 
-        $info = (new Info())
+        $info = (new UserInfo())
             ->setUser($user)
             ->setAvatar($response->getProfilePicture())
             ->setDisplayName($response->getNickname())
@@ -211,5 +209,4 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
 
         $user->setInfo($info);
     }
-
 }

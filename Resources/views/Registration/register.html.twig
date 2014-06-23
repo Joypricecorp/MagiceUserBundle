@@ -1,0 +1,10 @@
+{% extends "MagiceUserBundle::layout.html.twig" %}
+
+{% block mg_user_content %}
+    <form action="{{ path('mg_user_register') }}" {{ form_enctype(form) }} method="POST">
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="{{ '_mg.user.registration.button.submit'|trans }}"/>
+        </div>
+    </form>
+{% endblock mg_user_content %}

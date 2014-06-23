@@ -4,41 +4,41 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-	<route id="mg_user_register" pattern="/">
+	<route id="mg_user_register" pattern="/register">
 		<default key="_controller">FOSUserBundle:Registration:register</default>
 	</route>
 
-	<route id="mg_user_register_check_email" pattern="/check-email">
+	<route id="mg_user_register_check_email" pattern="/register/check-email">
 		<default key="_controller">FOSUserBundle:Registration:checkEmail</default>
 		<requirement key="_method">GET</requirement>
 	</route>
 
-	<route id="mg_user_register_confirm" pattern="/confirm/{token}">
+	<route id="mg_user_register_confirm" pattern="/register/confirm/{token}">
 		<default key="_controller">FOSUserBundle:Registration:confirm</default>
 		<requirement key="_method">GET</requirement>
 	</route>
 
-	<route id="mg_user_register_confirmed" pattern="/confirmed">
+	<route id="mg_user_register_confirmed" pattern="/register/confirmed">
 		<default key="_controller">FOSUserBundle:Registration:confirmed</default>
 		<requirement key="_method">GET</requirement>
 	</route>
 
-	<route id="mg_user_resetting_request" pattern="/request">
+	<route id="mg_user_resetting_request" pattern="/resetting/request">
 		<default key="_controller">FOSUserBundle:Resetting:request</default>
 		<requirement key="_method">GET</requirement>
 	</route>
 
-	<route id="mg_user_resetting_send_email" pattern="/send-email">
+	<route id="mg_user_resetting_send_email" pattern="/resetting/send-email">
 		<default key="_controller">FOSUserBundle:Resetting:sendEmail</default>
 		<requirement key="_method">POST</requirement>
 	</route>
 
-	<route id="mg_user_resetting_check_email" pattern="/check-email">
+	<route id="mg_user_resetting_check_email" pattern="/resetting/check-email">
 		<default key="_controller">FOSUserBundle:Resetting:checkEmail</default>
 		<requirement key="_method">GET</requirement>
 	</route>
 
-	<route id="mg_user_resetting_reset" pattern="/reset/{token}">
+	<route id="mg_user_resetting_reset" pattern="/resetting/reset/{token}">
 		<default key="_controller">FOSUserBundle:Resetting:reset</default>
 		<requirement key="_method">GET|POST</requirement>
 	</route>
@@ -61,7 +61,11 @@
 		<requirement key="_method">GET|POST</requirement>
 	</route>
 
-	<route id="mg_user_login_facebook" pattern="/login/check-facebook">
+	<route id="mg_user_login_oauth" pattern="/login/{service}">
+		<default key="_controller">HWIOAuthBundle:Connect:redirectToService</default>
+	</route>
+
+	<route id="mg_user_login_oauth_facebook" pattern="/login/check-facebook">
 
 	</route>
 
