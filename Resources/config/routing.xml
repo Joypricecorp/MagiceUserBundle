@@ -65,7 +65,7 @@
 		<requirement key="_method">GET|POST</requirement>
 	</route>
 
-	<route id="mg_user_login_oauth" pattern="/login/{service}">
+	<route id="mg_user_login_oauth" pattern="/connect/{service}">
 		<default key="_controller">HWIOAuthBundle:Connect:redirectToService</default>
 	</route>
 

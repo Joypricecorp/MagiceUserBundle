@@ -57,13 +57,13 @@
 			<argument>%magice.user.registration.success_target_route%</argument>
 		</service>
 
-		<service id="mg.user.listener.already_logedin_redirect" class="%magice.user.class.listener.already_logedin_redirect%">
+		<!--<service id="mg.user.listener.already_logedin_redirect" class="%magice.user.class.listener.already_logedin_redirect%">
 			<tag name="kernel.event_subscriber"/>
 			<argument type="service" id="security.context"/>
 			<argument type="service" id="router"/>
 			<argument>%magice.user.already_logedin_redirect_target%</argument>
 			<argument>%magice.user.already_logedin_redirect_routes%</argument>
-		</service>
+		</service>-->
 
 		<service id="mg.user.form.registration.type" class="%magice.user.class.form.registration%">
 			<tag name="form.type" alias="mg_user_form_registration_type" />

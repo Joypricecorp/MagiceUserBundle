@@ -99,44 +99,52 @@ security:
             id: fos_user.user_provider.username_email
 
     firewalls:
-        ....
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
         main:
-            pattern: ^/
+            context:     user
+            pattern:     /.*
+
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 check_path: /user/login_check
                 login_path: /user/login
+                default_target_path: /
+                use_forward:  false
+                use_referer: true
+
+            remember_me:
+                key: %secret%
+                name: APP_REMEMBER_ME
+                lifetime: 31536000
+                always_remember_me: true
+                remember_me_parameter: _remember_me
+
             oauth:
                 resource_owners:
                     facebook: "/user/login/check-facebook"
                     google: "/user/login/check-google"
                 login_path: /user/login
                 failure_path: /user/login
-
                 oauth_user_provider:
-                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
-                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
                     service: mg.user.provider
+
             logout:
                 path: /user/logout
+                target: /user/login
+
             anonymous: true
 
-        login:
-            pattern:  ^/login$
-            security: false
-
-            remember_me:
-                key: "%secret%"
-                lifetime: 31536000 # 365 days in seconds
-                path: /
-                domain: ~ # Defaults to the current domain from $_SERVER
-
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/user/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/connect.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
 ```
 
 ```

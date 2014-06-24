@@ -36,3 +36,7 @@ _mg:
                     submit: Submit
             check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
             password_already_requested: The password for this user has already been requested within the last 24 hours.
+        change_password:
+            button:
+                submit: Save Change
+                forgot_password: Forgot password?
