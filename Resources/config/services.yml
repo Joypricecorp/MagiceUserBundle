@@ -17,12 +17,8 @@ parameters:
     magice.user.class.listener.resetting.success: Magice\Bundle\UserBundle\EventListener\ResettingSuccess
     magice.user.class.listener.registration.success: Magice\Bundle\UserBundle\EventListener\RegistrationSuccess
     magice.user.class.listener.already_logedin_redirect: Magice\Bundle\UserBundle\EventListener\AlreadyLogedInRedirect
-    magice.util.class.inflector: Magice\Bundle\UserBundle\Util\Inflector
 
 services:
-    mg.util.inflector:
-        class: "%magice.util.class.inflector%"
-
     mg.user.repository:
         class: "%magice.user.class.repository%"
         factory_class: "%magice.user.class.repository%"
