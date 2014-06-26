@@ -151,7 +151,6 @@ security:
 # app/AppKernel.php
 new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
-new JMS\SerializerBundle\JMSSerializerBundle(),
 new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 new FOS\UserBundle\FOSUserBundle(),
 new Magice\Bundle\UserBundle\MagiceUserBundle(),

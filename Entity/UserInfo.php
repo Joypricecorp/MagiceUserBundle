@@ -123,7 +123,7 @@ class UserInfo
      */
     public function setFirstname($firstname)
     {
-        $this->firstname = $firstname;
+        $this->firstname = trim($firstname);
 
         return $this;
     }
@@ -146,7 +146,7 @@ class UserInfo
      */
     public function setLastname($lastname)
     {
-        $this->lastname = $lastname;
+        $this->lastname = trim($lastname);
 
         return $this;
     }
@@ -167,7 +167,7 @@ class UserInfo
      */
     public function setDisplayName($displayName)
     {
-        $this->displayName = $displayName;
+        $this->displayName = trim($displayName);
 
         return $this;
     }
@@ -177,7 +177,7 @@ class UserInfo
      */
     public function getDisplayName()
     {
-        return $this->displayName;
+        return $this->displayName ? : $this->getFullname();
     }
 
     /**
@@ -209,7 +209,7 @@ class UserInfo
      */
     public function setPersonalId($personalId)
     {
-        $this->personalId = $personalId;
+        $this->personalId = trim($personalId);
 
         return $this;
     }
@@ -395,7 +395,7 @@ class UserInfo
 
     public function getFullname()
     {
-        return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
+        return trim(sprintf('%s %s', $this->getFirstname(), $this->getLastname()));
     }
 }
 
