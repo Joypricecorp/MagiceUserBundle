@@ -10,7 +10,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Table(name="mg_user_connect",
  *      uniqueConstraints={@ORM\UniqueConstraint(columns={"user_id", "provider"})}
  * )
- * @ORM\HasLifecycleCallbacks
  */
 class UserConnect
 {

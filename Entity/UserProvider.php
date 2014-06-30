@@ -202,7 +202,7 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
             ->setUser($user)
             ->setAvatar($response->getProfilePicture())
             ->setDisplayName($response->getNickname())
-            ->setBirthDay($response->getBirthday())
+            ->setBirthday($response->getBirthday())
             ->setGender($response->getGender())
             ->setFirstname($response->getFirstName())
             ->setLastname($response->getLastName());

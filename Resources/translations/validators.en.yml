@@ -1,0 +1,4 @@
+_mg:
+    user:
+        info:
+            gender.blank: Gender cannot be blank.

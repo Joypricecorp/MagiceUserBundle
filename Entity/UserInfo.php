@@ -10,7 +10,6 @@ use libphonenumber\PhoneNumber;
 /**
  * @ORM\Table(name="mg_user_info")
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
  */
 class UserInfo
 {
@@ -64,9 +63,9 @@ class UserInfo
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="birth_day", type="date", nullable=true)
+     * @ORM\Column(name="birthday", type="date", nullable=true)
      */
-    private $birthDay;
+    private $birthday;
 
     /**
      * @var PhoneNumber
@@ -224,26 +223,26 @@ class UserInfo
     }
 
     /**
-     * Set birthDay
+     * Set birthday
      *
-     * @param \DateTime $birthDay
+     * @param \DateTime $birthday
      *
      * @return $this
      */
-    public function setBirthDay($birthDay)
+    public function setBirthday($birthday)
     {
-        $this->birthDay = $birthDay;
+        $this->birthday = $birthday;
 
         return $this;
     }
 
     /**
-     * Get BirthDay
+     * Get birthday
      * @return \DateTime
      */
-    public function getBirthDay()
+    public function getBirthday()
     {
-        return $this->birthDay;
+        return $this->birthday;
     }
 
     /**
