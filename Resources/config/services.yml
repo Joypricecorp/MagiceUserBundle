@@ -70,17 +70,17 @@ services:
     #    tags:
     #        - { name: kernel.event_subscriber }
 
-    mg.user.form.registration.type:
+    mg.user.form.type.registration:
         class: "%magice.user.class.form.registration%"
         arguments:
             - "%fos_user.model.user.class%"
         tags:
-            - { name: form.type, alias: mg_user_form_registration_type }
+            - { name: form.type, alias: mg_user_form_type_registration }
 
-    mg.user.form.info.type:
+    mg.user.form.type.info:
         class:  "%magice.user.class.form.info%"
         tags:
-            - { name: form.type, alias: mg_user_form_info_type }
+            - { name: form.type, alias: mg_user_form_type_info }
 
     mg.user.mailer.twig_swift:
         class: "%magice.user.class.mailer%"
