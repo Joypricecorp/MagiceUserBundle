@@ -76,10 +76,6 @@ twig:
 
 ```
 # app/config/routing.yml
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /login
-
 mg_user:
     resource: "@MagiceUserBundle/Resources/config/routing.yml"
     prefix:   /user
