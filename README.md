@@ -35,7 +35,7 @@ hwi_oauth:
     #automatic user registration on your site, with data from the provider (facebook. google, etc.)
     #and also, the connecting part (get the token and the user_id)
     connect:
-        account_connector: jp_user.userprovider
+        account_connector: mg.user.provider
     # name of the firewall in which this bundle is active, this setting MUST be set
     firewall_name: main
     fosub:
