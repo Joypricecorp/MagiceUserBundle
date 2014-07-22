@@ -48,8 +48,8 @@ hwi_oauth:
         facebook:
             type:                facebook
             user_response_class: Magice\Bundle\UserBundle\OAuth\Response\Facebook
-            client_id:           "687365851324174"
-            client_secret:       "0960b2ae15835b33b48f50c1b1415fb7"
+            client_id:           "xxxx"
+            client_secret:       "xxxx"
             scope:               "basic_info,email,user_birthday,user_likes,user_location,publish_stream"
 
 fos_user:
