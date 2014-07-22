@@ -15,14 +15,15 @@
     
     "require": {
         "php": ">=5.3.3",
-        "hwi/oauth-bundle":                 "0.4.*@dev",
-        "friendsofsymfony/user-bundle":     "2.0.*@dev",
+        "hwi/oauth-bundle":                 "~0.4@dev",
+        "friendsofsymfony/user-bundle":     "~2.0@dev",
         "stof/doctrine-extensions-bundle":  "~1.1",
         "magice/validator":                 "0.1"
     },
     
     "require-dev": {
-        "liil/kint": "dev-master"
+        "liil/kint":                            "master-dev"
+        "doctrine/doctrine-fixtures-bundle":    "master-dev"
     },
     
     "autoload": {
