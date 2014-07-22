@@ -21,6 +21,10 @@
         "magice/validator":                 "0.1"
     },
     
+    "require-dev": {
+        "liil/kint": "dev-master"
+    },
+    
     "autoload": {
         "psr-0": { "Magice\\Bundle\\UserBundle\\": "" }
     },
