@@ -22,7 +22,7 @@
     },
     
     "require-dev": {
-        "liil/kint":                            "master-dev"
+        "liil/kint":                            "master-dev",
         "doctrine/doctrine-fixtures-bundle":    "master-dev"
     },
     
