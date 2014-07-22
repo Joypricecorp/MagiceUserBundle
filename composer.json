@@ -5,12 +5,14 @@
     "keywords": ["user"],
     "homepage": "https://github.com/Joypricecorp/MagiceUserBundle",
     "license": "MIT",
+    
     "authors": [
         {
             "name":  "ツ Liverbool",
             "email": "nukboon@gmail.com"
         }
     ],
+    
     "require": {
         "php": ">=5.3.3",
         "hwi/oauth-bundle":                 "0.4.*@dev",
@@ -18,10 +20,15 @@
         "stof/doctrine-extensions-bundle":  "~1.1",
         "magice/validator":                 "0.1"
     },
+    
     "autoload": {
         "psr-0": { "Magice\\Bundle\\UserBundle\\": "" }
     },
+    
     "target-dir": "Magice/Bundle/UserBundle",
+    
+    "minimum-stability": "dev",
+    
     "extra": {
         "branch-alias": {
             "dev-master": "master-dev"
