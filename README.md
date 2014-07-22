@@ -81,7 +81,8 @@ hwi_oauth_redirect:
     prefix:   /login
 
 mg_user:
-    resource: "@MagiceUserBungle/Resources/config/routing.xml"
+    resource: "@MagiceUserBundle/Resources/config/routing.yml"
+    prefix:   /user
 ```
 
 ```
