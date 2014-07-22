@@ -50,7 +50,7 @@ hwi_oauth:
             user_response_class: Magice\Bundle\UserBundle\OAuth\Response\Facebook
             client_id:           "xxxx"
             client_secret:       "xxxx"
-            scope:               "basic_info,email,user_birthday,user_likes,user_location,publish_stream"
+            scope:               "public_profile,user_friends,email,user_birthday,user_likes,user_location,publish_stream"
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
