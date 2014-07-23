@@ -5,7 +5,7 @@ The Magice User Bundle
 
 ### Install Instruction
 
-```
+```yaml
 # app/config/config.yml
 framework:
     translator: ~
@@ -74,14 +74,14 @@ twig:
             blank: data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7
 ```
 
-```
+```yaml
 # app/config/routing.yml
 mg_user:
     resource: "@MagiceUserBundle/Resources/config/routing.yml"
     prefix:   /user
 ```
 
-```
+```yaml
 # app/config/security.yml
 security:
     encoders:
@@ -144,7 +144,7 @@ security:
 
 ```
 
-```
+```php
 # app/AppKernel.php
 new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
