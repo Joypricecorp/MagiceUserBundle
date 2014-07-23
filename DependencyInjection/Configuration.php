@@ -2,6 +2,7 @@
 
 namespace Magice\Bundle\UserBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -19,10 +20,146 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode    = $treeBuilder->root('magice_user');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $supportedDrivers = array('orm', 'custom');
+
+        $rootNode
+            ->children()
+                ->scalarNode('driver')->defaultValue('orm')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                    ->end()
+                ->end()
+
+                ->scalarNode('firewall')->defaultValue('main')->end()
+                ->scalarNode('provider')->defaultValue('mg.user.provider')->end()
+                ->scalarNode('username_iterations')->defaultValue(30)->end()
+
+                ->arrayNode('class')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('user')->defaultValue('Magice\Bundle\UserBundle\Entity\User')->cannotBeEmpty()->end()
+                        ->scalarNode('group')->defaultValue('Magice\Bundle\UserBundle\Entity\Group')->cannotBeEmpty()->end()
+                        ->arrayNode('responder')
+                            ->useAttributeAsKey('name')
+                            ->prototype('scalar')->cannotBeEmpty()->end()
+                        ->end()
+                    ->end()
+                ->end()
+
+                ->arrayNode('email')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('address')->defaultValue('webmaster@example.com')->cannotBeEmpty()->end()
+                        ->scalarNode('sender')->defaultValue('webmaster')->cannotBeEmpty()->end()
+                        ->scalarNode('service')->defaultValue('mg.user.mailer.twig_swift')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+
+                ->arrayNode('form')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('registration')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')->defaultValue('mg_user_form_type_registration')->cannotBeEmpty()->end()
+                                ->scalarNode('type')->defaultValue('mg_user_form_type_registration')->cannotBeEmpty()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+
+                ->arrayNode('oauth')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+
+                            ->scalarNode('client_id')->cannotBeEmpty()->end()
+                            ->scalarNode('client_secret')->cannotBeEmpty()->end()
+
+                            ->scalarNode('scope')
+                                ->validate()
+                                    ->ifTrue(function($v) {
+                                            return empty($v);
+                                        })
+                                    ->thenUnset()
+                                ->end()
+                            ->end()
+
+                            ->scalarNode('user_response_class')
+                                ->validate()
+                                    ->ifTrue(function($v) {
+                                            return empty($v);
+                                        })
+                                    ->thenUnset()
+                                ->end()
+                            ->end()
+
+                            ->scalarNode('service')
+                                ->validate()
+                                    ->ifTrue(function($v) {
+                                            return empty($v);
+                                        })
+                                    ->thenUnset()
+                                ->end()
+                            ->end()
+
+                            ->scalarNode('type')
+                                ->validate()
+                                    ->ifTrue(function($v) {
+                                            return empty($v);
+                                        })
+                                    ->thenUnset()
+                                ->end()
+                            ->end()
+
+                        ->end()
+                    ->end()
+                ->end()
+
+            ->end()
+        ;
+
+        $this->shorthandOauthFacebook($rootNode);
 
         return $treeBuilder;
+    }
+
+    private function shorthandOauthFacebook(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('facebook')
+                    ->children()
+                        ->scalarNode('client_id')->cannotBeEmpty()->end()
+                        ->scalarNode('client_secret')->cannotBeEmpty()->end()
+
+                        ->scalarNode('scope')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                        ->scalarNode('user_response_class')
+                            ->defaultValue('Magice\Bundle\UserBundle\OAuth\Response\Facebook')
+                            ->cannotBeEmpty()
+                        ->end()
+
+                        ->scalarNode('service')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }
