@@ -1,3 +1,5 @@
+### MagiceUserBundle configuration reference.
+
 ````yaml
 magice_user:
     driver: orm
