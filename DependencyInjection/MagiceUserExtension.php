@@ -42,6 +42,53 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $this->FosUserConfig($container, $config);
         $this->HwiOauth($container, $config);
         $this->Security($container, $config);
+        $this->Doctrine($container, $config);
+        $this->StofDoctrineExtensions($container, $config);
+    }
+
+    private function StofDoctrineExtensions(ContainerBuilder $container, array $config)
+    {
+        $name = 'stof_doctrine_extensions';
+
+        $defaults = array(
+            'orm' => array(
+                'default' => array(
+                    'softdeleteable' => true,
+                    'timestampable'  => true
+                )
+            )
+        );
+
+        $config = $container->getExtensionConfig($name);
+        $config = array_replace_recursive($defaults, $config[0]);
+
+        $container->prependExtensionConfig($name, $config);
+    }
+
+    private function Doctrine(ContainerBuilder $container, array $config)
+    {
+        $name = 'doctrine';
+
+        $defaults = array(
+            'dbal' => array(
+                'types' => array(
+                    'phone_number' => $config['class']['doctrine']['phone_number']
+                )
+            ),
+            'orm'  => array(
+                'filters' => array(
+                    'softdeleteable' => array(
+                        'class'   => $config['class']['doctrine']['softdeleteable'],
+                        'enabled' => true
+                    )
+                )
+            )
+        );
+
+        $config = $container->getExtensionConfig($name);
+        $config = array_replace_recursive($defaults, $config[0]);
+
+        $container->prependExtensionConfig($name, $config);
     }
 
     private function Security(ContainerBuilder $container, array $config)
@@ -50,13 +97,13 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $prefix = $config['path_prefix'];
 
         $defaults = array(
-            'encoders'       => array(
+            'encoders'  => array(
                 'FOS\UserBundle\Model\UserInterface' => 'sha512'
             ),
-            'providers'      => array(
+            'providers' => array(
                 'fos_userbundle' => array('id' => 'fos_user.user_provider.username_email')
             ),
-            'firewalls'      => array(
+            'firewalls' => array(
                 'magice' => array(
                     'context'     => 'user',
                     'pattern'     => '/.*',
