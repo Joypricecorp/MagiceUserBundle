@@ -39,7 +39,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         // use the Configuration class to generate a config array with the settings
         $config = $this->processConfiguration(new Configuration(), $config);
 
-        $this->FosUserConfig($container, $config);
+        $this->FosUser($container, $config);
         $this->HwiOauth($container, $config);
         $this->Security($container, $config);
         $this->Doctrine($container, $config);
@@ -149,7 +149,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig($name, $config);
     }
 
-    private function FosUserConfig(ContainerBuilder $container, array $config)
+    private function FosUser(ContainerBuilder $container, array $config)
     {
         $name = 'fos_user';
 
