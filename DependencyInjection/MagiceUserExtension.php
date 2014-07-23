@@ -41,9 +41,9 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
         $this->forFosUser($container, $config);
         $this->forHwiOauth($container, $config);
-        $this->forSecurity($container, $config);
         $this->forDoctrine($container, $config);
         $this->forStofforDoctrineExtensions($container, $config);
+        $this->forSecurity($container, $config);
     }
 
     private function forStofforDoctrineExtensions(ContainerBuilder $container, array $config)
@@ -93,8 +93,14 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
     private function forSecurity(ContainerBuilder $container, array $config)
     {
-        $name   = 'security';
-        $prefix = $config['path_prefix'];
+        $name     = 'security';
+        $prefix   = $config['path_prefix'];
+        $hwioauth = $container->getExtensionConfig('hwi_oauth');
+
+        $resource_owners = array();
+        foreach (array_keys($hwioauth[0]['resource_owners']) as $resource) {
+            $resource_owners[$resource] = sprintf('%s/login/check-%s', $prefix, $resource);
+        }
 
         $defaults = array(
             'encoders'  => array(
@@ -124,7 +130,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                         'remember_me_parameter' => '_remember_me'
                     ),
                     'oauth'       => array(
-                        'resource_owners'     => array(),
+                        'resource_owners'     => $resource_owners,
                         'login_path'          => sprintf('%s/login', $prefix),
                         'failure_path'        => sprintf('%s/login', $prefix),
                         'oauth_user_provider' => array(
@@ -205,12 +211,12 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                 }
             }
 
-            $properties[$key] = true;
+            $properties[$key] = $key;
         }
 
         # Shorthand for Facebook
         if (isset($config['facebook'])) {
-            $properties['facebook']      = true;
+            $properties['facebook']      = 'facebook';
             $config['facebook']['type']  = 'facebook';
             $config['oauth']['facebook'] = $config['facebook'];
 
@@ -231,7 +237,6 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
         $config = $container->getExtensionConfig($name);
         $config = array_replace_recursive($defaults, $config[0]);
-
         $container->prependExtensionConfig($name, $config);
     }
 }
