@@ -5,7 +5,7 @@ The Magice User Bundle for Symfony2 with lowest configuration.
 
 ### Install Instruction
 
-```
+```yaml
 # app/config/config.yml
 
 ## Sample if use oauth like facebook.
@@ -25,7 +25,7 @@ mg_user:
     prefix:   /user
 ```
 
-```
+```yaml
 # app/config/security.yml
 security:
     ....
@@ -39,7 +39,7 @@ security:
 
 ```
 
-```
+```php
 # app/AppKernel.php
 new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
