@@ -41,6 +41,65 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
         $this->FosUserConfig($container, $config);
         $this->HwiOauth($container, $config);
+        $this->Security($container, $config);
+    }
+
+    private function Security(ContainerBuilder $container, array $config)
+    {
+        $name   = 'security';
+        $prefix = $config['path_prefix'];
+
+        $defaults = array(
+            'encoders'       => array(
+                'FOS\UserBundle\Model\UserInterface' => 'sha512'
+            ),
+            'providers'      => array(
+                'fos_userbundle' => array('id' => 'fos_user.user_provider.username_email')
+            ),
+            'firewalls'      => array(
+                'magice' => array(
+                    'context'     => 'user',
+                    'pattern'     => '/.*',
+                    'form_login'  => array(
+                        'provider'            => 'fos_userbundle',
+                        'csrf_provider'       => 'form.csrf_provider',
+                        'check_path'          => sprintf('%s/login_check', $prefix),
+                        'login_path'          => sprintf('%s/login', $prefix),
+                        'default_target_path' => '/',
+                        'use_forward'         => false,
+                        'use_referer'         => true,
+                    ),
+                    'remember_me' => array(
+                        'key'                   => '%secret%',
+                        'name'                  => 'MAGICE_REMEMBER_ME',
+                        'lifetime'              => 31536000,
+                        'always_remember_me'    => true,
+                        'remember_me_parameter' => '_remember_me'
+                    ),
+                    'oauth'       => array(
+                        'resource_owners'     => array(),
+                        'login_path'          => sprintf('%s/login', $prefix),
+                        'failure_path'        => sprintf('%s/login', $prefix),
+                        'oauth_user_provider' => array(
+                            'service' => 'mg.user.provider'
+                        )
+                    ),
+                    'logout'      => array(
+                        'path'   => sprintf('%s/logout', $prefix),
+                        'target' => sprintf('%s/login', $prefix)
+                    ),
+                    'anonymous'   => true
+                )
+            )
+        );
+
+        $config = $container->getExtensionConfig($name);
+        $config = array_replace_recursive($defaults, $config[0]);
+
+        // access_control cannot be override
+        unset($config['access_control']);
+
+        $container->prependExtensionConfig($name, $config);
     }
 
     private function FosUserConfig(ContainerBuilder $container, array $config)
