@@ -48,4 +48,5 @@ new FOS\UserBundle\FOSUserBundle(),
 new Magice\Bundle\UserBundle\MagiceUserBundle(),
 ```
 
-[Full configration](https://github.com/Joypricecorp/MagiceUserBundle/blob/master/full_configuration.md)
+[Shorthand configration](https://github.com/Joypricecorp/MagiceUserBundle/blob/master/short_configuration.md)
+[Full master configration](https://github.com/Joypricecorp/MagiceUserBundle/blob/master/full_configuration.md)
