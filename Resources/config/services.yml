@@ -11,12 +11,14 @@ parameters:
     magice.user.class.form.info: Magice\Bundle\UserBundle\Form\UserInfoType
     magice.user.class.provider: Magice\Bundle\UserBundle\Entity\UserProvider
     magice.user.class.manager: Magice\Bundle\UserBundle\Entity\UserManager
-    magice.user.class.entity: Magice\Bundle\UserBundle\Entity\User
+    magice.user.class.entity.user: Magice\Bundle\UserBundle\Entity\User
+    magice.user.class.entity.group: Magice\Bundle\UserBundle\Entity\Group
     magice.user.class.repository: Magice\Bundle\UserBundle\Entity\UserRepository
     magice.user.class.mailer.twig_swift: Magice\Bundle\UserBundle\Mailer\TwigSwift
     magice.user.class.listener.resetting.success: Magice\Bundle\UserBundle\EventListener\ResettingSuccess
     magice.user.class.listener.registration.success: Magice\Bundle\UserBundle\EventListener\RegistrationSuccess
     magice.user.class.listener.already_logedin_redirect: Magice\Bundle\UserBundle\EventListener\AlreadyLogedInRedirect
+    magice.user.class.responder.facebook: Magice\Bundle\UserBundle\OAuth\Response\Facebook
 
 services:
     mg.user.repository:
@@ -25,7 +27,7 @@ services:
         factory_method: create
         arguments:
             - "@doctrine.orm.default_entity_manager"
-            - "%magice.user.class.entity%"
+            - "%magice.user.class.entity.user%"
             - "@service_container"
 
     mg.user.provider:
