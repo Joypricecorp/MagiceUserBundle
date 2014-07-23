@@ -49,4 +49,5 @@ new Magice\Bundle\UserBundle\MagiceUserBundle(),
 ```
 
 [Shorthand configration](https://github.com/Joypricecorp/MagiceUserBundle/blob/master/short_configuration.md)
+
 [Full master configration](https://github.com/Joypricecorp/MagiceUserBundle/blob/master/full_configuration.md)
