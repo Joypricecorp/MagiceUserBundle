@@ -62,8 +62,8 @@ fos_user:
         mailer: mg.user.mailer.twig_swift
     registration:
         form:
-            type: mg_user_form_registration_type
-            name: mg_user_form_registration_type
+            type: mg_user_form_type_registration
+            name: mg_user_form_type_registration
     from_email:
         address: noreply@joyprice.com
         sender_name: Joyprice Notify Mailer
