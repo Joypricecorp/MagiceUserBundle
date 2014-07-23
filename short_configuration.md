@@ -1,4 +1,4 @@
-````
+````yaml
 magice_user:
     driver: orm
     path_prefix: /user
