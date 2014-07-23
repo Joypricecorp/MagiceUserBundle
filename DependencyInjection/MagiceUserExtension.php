@@ -72,7 +72,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                     'remember_me' => array(
                         'key'                   => '%secret%',
                         'name'                  => 'MAGICE_REMEMBER_ME',
-                        'lifetime'              => 31536000,
+                        'lifetime'              => $config['remember_lifetime'],
                         'always_remember_me'    => true,
                         'remember_me_parameter' => '_remember_me'
                     ),
