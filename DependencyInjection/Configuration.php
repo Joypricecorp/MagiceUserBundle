@@ -35,6 +35,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('firewall')->defaultValue('magice')->end()
                 ->scalarNode('provider')->defaultValue('mg.user.provider')->end()
                 ->scalarNode('username_iterations')->defaultValue(30)->end()
+                ->scalarNode('remember_lifetime')->defaultValue(31536000)->end()
 
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
