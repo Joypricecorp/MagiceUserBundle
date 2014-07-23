@@ -39,14 +39,14 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         // use the Configuration class to generate a config array with the settings
         $config = $this->processConfiguration(new Configuration(), $config);
 
-        $this->FosUser($container, $config);
-        $this->HwiOauth($container, $config);
-        $this->Security($container, $config);
-        $this->Doctrine($container, $config);
-        $this->StofDoctrineExtensions($container, $config);
+        $this->forFosUser($container, $config);
+        $this->forHwiOauth($container, $config);
+        $this->forSecurity($container, $config);
+        $this->forDoctrine($container, $config);
+        $this->forStofforDoctrineExtensions($container, $config);
     }
 
-    private function StofDoctrineExtensions(ContainerBuilder $container, array $config)
+    private function forStofforDoctrineExtensions(ContainerBuilder $container, array $config)
     {
         $name = 'stof_doctrine_extensions';
 
@@ -65,7 +65,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig($name, $config);
     }
 
-    private function Doctrine(ContainerBuilder $container, array $config)
+    private function forDoctrine(ContainerBuilder $container, array $config)
     {
         $name = 'doctrine';
 
@@ -91,7 +91,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig($name, $config);
     }
 
-    private function Security(ContainerBuilder $container, array $config)
+    private function forSecurity(ContainerBuilder $container, array $config)
     {
         $name   = 'security';
         $prefix = $config['path_prefix'];
@@ -149,7 +149,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig($name, $config);
     }
 
-    private function FosUser(ContainerBuilder $container, array $config)
+    private function forFosUser(ContainerBuilder $container, array $config)
     {
         $name = 'fos_user';
 
@@ -181,7 +181,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig($name, $config);
     }
 
-    private function HwiOauth(ContainerBuilder $container, array $config)
+    private function forHwiOauth(ContainerBuilder $container, array $config)
     {
         $name = 'hwi_oauth';
 
