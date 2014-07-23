@@ -173,7 +173,8 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                 'mailer' => $config['email']['service']
             ),
             'registration'  => array(
-                'form' => $config['form']['registration']
+                'form'         => $config['form']['registration'],
+                'confirmation' => array('enabled' => $config['confirmation'])
             ),
             'from_email'    => array(
                 'address'     => $config['email']['address'],
