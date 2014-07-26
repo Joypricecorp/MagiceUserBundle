@@ -5,6 +5,7 @@ namespace Magice\Bundle\UserBundle\Form;
 use Magice\Bundle\UserBundle\Entity\UserInfo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserInfoType extends AbstractType
@@ -29,21 +30,23 @@ class UserInfoType extends AbstractType
             )
             ->add('firstname', 'text', array('label' => '_mg.user.info.form.label.firstname'))
             ->add('lastname', 'text', array('label' => '_mg.user.info.form.label.lastname'))
-            ->add('displayName', 'text', array('label' => '_mg.user.info.form.label.display_name'))
-            ->add('email', 'email', array('label' => '_mg.user.info.form.label.email'))
-            ->add('avatar', 'text', array('label' => '_mg.user.info.form.label.avatar'))
-            ->add('personalId', 'text', array('label' => '_mg.user.info.form.label.personal_id'))
             ->add(
                 'birthday',
                 'birthday',
                 array(
-                    'label'       => '_mg.user.info.form.label.birthday',
-                    'years'       => $this->years(),
-                    'empty_value' => '...',
-                    'required'    => true
+                    'label'    => '_mg.user.info.form.label.birthday',
+                    //'years'       => $this->years(),
+                    //'empty_value' => '...',
+                    'widget'   => 'single_text',
+                    'format'   => IntlDateFormatter::FULL,
+                    'required' => true
                 )
             )
-            ->add('mobile', 'tel', array('label' => '_mg.user.info.form.label.mobile'))
+            ->add('displayName', 'text', array('label' => '_mg.user.info.form.label.display_name', 'required' => false))
+            ->add('email', 'email', array('label' => '_mg.user.info.form.label.email', 'required' => false))
+            ->add('avatar', 'text', array('label' => '_mg.user.info.form.label.avatar', 'required' => false))
+            ->add('personalId', 'text', array('label' => '_mg.user.info.form.label.personal_id', 'required' => false))
+            ->add('mobile', 'tel', array('label' => '_mg.user.info.form.label.mobile', 'required' => false))
             ->add('telHome', 'tel', array('label' => '_mg.user.info.form.label.tel_home', 'required' => false))
             ->add('telWork', 'tel', array('label' => '_mg.user.info.form.label.tel_work', 'required' => false))
             ->add('telWorkExt', 'text', array('label' => '_mg.user.info.form.label.tel_work_ext', 'required' => false));
