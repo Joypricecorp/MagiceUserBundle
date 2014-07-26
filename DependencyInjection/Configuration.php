@@ -68,7 +68,11 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('address')->defaultValue('webmaster@example.com')->cannotBeEmpty()->end()
                         ->scalarNode('sender')->defaultValue('webmaster')->cannotBeEmpty()->end()
+<<<<<<< HEAD
                         ->scalarNode('service')->defaultValue('fos_user.mailer.twig_swift')->cannotBeEmpty()->end()
+=======
+                        ->scalarNode('service')->defaultValue('mg.user.mailer.twig_swift')->cannotBeEmpty()->end()
+>>>>>>> FETCH_HEAD
                     ->end()
                 ->end()
 
