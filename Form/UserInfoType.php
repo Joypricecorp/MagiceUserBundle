@@ -30,6 +30,7 @@ class UserInfoType extends AbstractType
             ->add('firstname', 'text', array('label' => '_mg.user.info.form.label.firstname'))
             ->add('lastname', 'text', array('label' => '_mg.user.info.form.label.lastname'))
             ->add('displayName', 'text', array('label' => '_mg.user.info.form.label.display_name'))
+            ->add('email', 'email', array('label' => '_mg.user.info.form.label.email'))
             ->add('avatar', 'text', array('label' => '_mg.user.info.form.label.avatar'))
             ->add('personalId', 'text', array('label' => '_mg.user.info.form.label.personal_id'))
             ->add(

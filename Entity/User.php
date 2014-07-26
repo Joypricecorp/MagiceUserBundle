@@ -157,6 +157,6 @@ class User extends BaseUser
 
         return $this->avatar = $info
             ? $info->getAvatar()
-            : 'https://cdn.joyprice.com/img/logo/jp-logo-back-200x200.png';
+            : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     }
 }

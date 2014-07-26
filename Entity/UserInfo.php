@@ -92,6 +92,12 @@ class UserInfo
     private $telWorkExt;
 
     /**
+     * @var string public email
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
+
+    /**
      * @var User
      * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\User", inversedBy="info")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
@@ -370,6 +376,26 @@ class UserInfo
     public function getGender()
     {
         return $this->gender;
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
