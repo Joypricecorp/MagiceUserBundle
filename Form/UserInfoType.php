@@ -35,10 +35,7 @@ class UserInfoType extends AbstractType
                 'birthday',
                 array(
                     'label'    => '_mg.user.info.form.label.birthday',
-                    //'years'       => $this->years(),
-                    //'empty_value' => '...',
                     'widget'   => 'single_text',
-                    'format'   => IntlDateFormatter::FULL,
                     'required' => true
                 )
             )
@@ -50,19 +47,6 @@ class UserInfoType extends AbstractType
             ->add('telHome', 'tel', array('label' => '_mg.user.info.form.label.tel_home', 'required' => false))
             ->add('telWork', 'tel', array('label' => '_mg.user.info.form.label.tel_work', 'required' => false))
             ->add('telWorkExt', 'text', array('label' => '_mg.user.info.form.label.tel_work_ext', 'required' => false));
-    }
-
-    protected function years()
-    {
-        $years = array();
-        $start = (date('Y')) - UserInfo::YEAR_MIN_AGE;
-
-        for ($i = 0; $i < UserInfo::YEAR_MAG_AGE; $i++) {
-            $start--;
-            $years[$start] = $start;
-        }
-
-        return $years;
     }
 
     /**
