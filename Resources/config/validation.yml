@@ -21,3 +21,7 @@ Magice\Bundle\UserBundle\Entity\UserInfo:
                 minMessage: _mg.user.info.lastname.short
                 max: 255
                 maxMessage: _mg.user.info.lastname.long
+
+        email:
+            - Email:
+                message: _mg.user.info.email.invalid
