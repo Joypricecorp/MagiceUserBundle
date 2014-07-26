@@ -99,11 +99,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
         $resource_owners = array();
         foreach (array_keys($hwioauth[0]['resource_owners']) as $resource) {
-<<<<<<< HEAD
             $resource_owners[$resource] = sprintf('%s/login/%s', $prefix, $resource);
-=======
-            $resource_owners[$resource] = sprintf('%s/login/check-%s', $prefix, $resource);
->>>>>>> FETCH_HEAD
         }
 
         $defaults = array(
