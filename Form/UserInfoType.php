@@ -22,8 +22,8 @@ class UserInfoType extends AbstractType
                 array(
                     'label'   => '_mg.user.info.form.label.gender',
                     'choices' => array(
-                        'M' => '_mg.user.info.form.label.gender.select_male',
-                        'F' => '_mg.user.info.form.label.gender.select_female'
+                        'M' => '_mg.user.info.form.label.gender.male',
+                        'F' => '_mg.user.info.form.label.gender.female'
                     )
                 )
             )
