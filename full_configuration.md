@@ -58,6 +58,11 @@ fos_user:
     user_class: Magice\Bundle\UserBundle\Entity\User
     group:
         group_class: Magice\Bundle\UserBundle\Entity\Group
+<<<<<<< HEAD
+=======
+    service:
+        mailer: mg.user.mailer.twig_swift
+>>>>>>> FETCH_HEAD
     registration:
         form:
             type: mg_user_form_type_registration
