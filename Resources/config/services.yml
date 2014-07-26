@@ -7,13 +7,6 @@ parameters:
     magice.user.class.entity.user: Magice\Bundle\UserBundle\Entity\User
     magice.user.class.entity.group: Magice\Bundle\UserBundle\Entity\Group
     magice.user.class.repository: Magice\Bundle\UserBundle\Entity\UserRepository
-<<<<<<< HEAD
-=======
-    magice.user.class.mailer.twig_swift: Magice\Bundle\UserBundle\Mailer\TwigSwift
-    magice.user.class.listener.resetting.success: Magice\Bundle\UserBundle\EventListener\ResettingSuccess
-    magice.user.class.listener.registration.success: Magice\Bundle\UserBundle\EventListener\RegistrationSuccess
-    magice.user.class.listener.already_logedin_redirect: Magice\Bundle\UserBundle\EventListener\AlreadyLogedInRedirect
->>>>>>> FETCH_HEAD
     magice.user.class.responder.facebook: Magice\Bundle\UserBundle\OAuth\Response\Facebook
 
 services:
