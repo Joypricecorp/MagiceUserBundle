@@ -93,6 +93,11 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
     private function forSecurity(ContainerBuilder $container, array $config)
     {
+        # not use build-in firewall
+        if ($config['firewall'] !== 'magice') {
+            return;
+        }
+
         $name     = 'security';
         $prefix   = $config['path_prefix'];
         $hwioauth = $container->getExtensionConfig('hwi_oauth');
