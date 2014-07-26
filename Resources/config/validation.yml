@@ -21,25 +21,3 @@ Magice\Bundle\UserBundle\Entity\UserInfo:
                 minMessage: _mg.user.info.lastname.short
                 max: 255
                 maxMessage: _mg.user.info.lastname.long
-
-        birthday:
-            - NotBlank:
-                message: _mg.user.info.birthday.blank
-
-        mobile:
-            - NotBlank:
-                message: _mg.user.info.mobile.blank
-                groups: [Strict]
-            - Magice\Validator\Constraints\Phone:
-                defaultRegion: TH
-                message: _mg.user.info.mobile.invalid
-
-        telHome:
-            - Magice\Validator\Constraints\Phone:
-                defaultRegion: TH
-                message: _mg.user.info.tel_home.invalid
-
-        telWork:
-            - Magice\Validator\Constraints\Phone:
-                defaultRegion: TH
-                message: _mg.user.info.tel_work.invalid
