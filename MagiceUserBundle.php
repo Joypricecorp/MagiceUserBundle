@@ -8,10 +8,6 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class MagiceUserBundle extends Bundle
 {
-    public function build(ContainerBuilder $builder)
-    {
-    }
-
     public function getParent()
     {
         return 'FOSUserBundle';
