@@ -62,7 +62,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param string  $provider
+     * @param string      $provider
      * @param UserConnect $connect
      *
      * @return $this
@@ -136,9 +136,10 @@ class User extends BaseUser
     }
 
     /**
+     * Get display name
      * @return string
      */
-    public function getDisplayNameShowing()
+    public function getName()
     {
         if ($info = $this->getInfo()) {
             return $info->getDisplayName();

@@ -1,72 +1,79 @@
-mg_user_test:
-    pattern: /test
-    defaults: { _controller: FOSUserBundle:Resetting:test }
-
-mg_user_register:
+fos_user_registration_register:
     pattern: /register
     defaults: { _controller: MagiceUserBundle:Registration:register }
 
-mg_user_register_check_email:
+fos_user_registration_check_email:
     pattern: /register/check-email
     defaults: { _controller: FOSUserBundle:Registration:checkEmail }
     methods: [GET]
 
-mg_user_register_confirm:
+fos_user_registration_confirm:
     pattern: /register/confirm/{token}
     defaults: { _controller: FOSUserBundle:Registration:confirm }
     methods: [GET]
 
-mg_user_register_confirmed:
+fos_user_registration_confirmed:
     pattern: /register/confirmed
     defaults: { _controller: FOSUserBundle:Registration:confirmed }
     methods: [GET]
 
-mg_user_resetting_request:
+fos_user_resetting_request:
     pattern: /resetting/request
     defaults: { _controller: FOSUserBundle:Resetting:request }
     methods: [GET]
 
-mg_user_resetting_send_email:
+fos_user_resetting_send_email:
     pattern: /resetting/send-email
     defaults: { _controller:  FOSUserBundle:Resetting:sendEmail }
     methods: [POST]
 
-mg_user_resetting_check_email:
-    pattern: /resetting/check-email">
+fos_user_resetting_check_email:
+    pattern: /resetting/check-email
     defaults: { _controller:  FOSUserBundle:Resetting:checkEmail }
     methods: [GET]
 
-mg_user_resetting_reset:
+fos_user_resetting_reset:
     pattern: "/resetting/reset/{token}"
     defaults: { _controller:  FOSUserBundle:Resetting:reset }
     methods: [GET, POST]
 
-mg_user_login:
+fos_user_security_login:
     pattern: /login
     defaults: { _controller: MagiceUserBundle:Security:login }
     methods: [GET]
 
-mg_user_check:
+fos_user_security_check:
     pattern: /login_check
     defaults: { _controller: FOSUserBundle:Security:check }
     methods: [POST]
 
-mg_user_logout:
+fos_user_security_logout:
     pattern: /logout
     defaults: { _controller: FOSUserBundle:Security:logout }
     methods: [GET]
 
-mg_user_change_password:
-    pattern: /change-password
-    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
-    methods: [GET, POST]
+# Add this to account bundle
+# to user account/change-password
+# this to easy handle access_control in your sucurity like:
+# - { path: ^/account, role: IS_AUTHENTICATED_REMEMBERED }
+#fos_user_change_password:
+#    pattern: /change-password
+#    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
+#    methods: [GET, POST]
 
-mg_user_login_oauth:
+# Add this to account bundle route
+# to user account/profile
+#fos_user_profile_show:
+#    path:     /profile
+#    defaults: { _controller: FOSUserBundle:Profile:show }
+#    methods: [GET]
+
+mg_user_oauth_connect:
     pattern: /connect/{service}
     defaults: { _controller: HWIOAuthBundle:Connect:redirectToService }
 
-mg_user_login_oauth_facebook:
-    pattern: /login/check-facebook
+mg_user_oauth_facebook:
+    pattern: /login/facebook
 
 #hwi_oauth_connect_service:
 #    pattern: /service/{service}

@@ -1,23 +1,29 @@
-{% extends "MagiceUserBundle::layout.html.twig" %}
+{% set page = "mg-user-login" %}
+{% extends "MagiceWebBundle:Frontend:layout.html.twig" %}
 
-{% block mg_user_content %}
-    <div class="mg-user-login">
+{% block content %}
+    <div class="container">
         <div class="ui top aligned relaxed stackable grid basic segment">
             <div class="ten wide column">
-                <div class="ui raised stacked teal segment">
-                    <div class="ui form large">
+                <div class="ui raised stacked segment">
+                    <div class="ui form large {% if error %}error{% endif %}">
 
-                        <div class="mg-header">
-                            <img class="ui small circular image" src="{{ img.blank }}">
-                            <h5 class="ui header">{{ "_mg.user.login.header"|trans }}</h5>
+                        <div class="ui header">
+                            <div class="logo"></div>
+
+                            <div class="content">{{ "_mg.user.login.header"|trans }}</div>
                         </div>
 
                         <div class="ui horizontal icon divider">
                             <i class="circular lock icon"></i>
                         </div>
 
-                        <form action="{{ path("mg_user_check") }}" method="post">
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        {% if error %}
+                            <div class="ui error message">{{ error }}</div>
+                        {% endif %}
+
+                        <form action="{{ path("fos_user_security_check") }}" method="post">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
                             <div class="field">
                                 <label for="username">{{ '_mg.user.login.username.label'|trans }}</label>
@@ -36,7 +42,7 @@
                                 <label for="password">{{ '_mg.user.login.password.label'|trans }}</label>
 
                                 <div class="ui left labeled icon input">
-                                    <input placeholder="{{ "_mg.user.login.password.placeholder"|trans }}" type="text" id="password" name="_password" required="required" autocomplete="off" ng-model="$form.data._password">
+                                    <input placeholder="{{ "_mg.user.login.password.placeholder"|trans }}" type="text" id="password" name="_password" required="required" autocomplete="off">
                                     <i class="lock icon"></i>
 
                                     <div class="ui corner label">
@@ -47,31 +53,30 @@
 
                             <div class="field">
                                 <div class="ui toggle checkbox" data-content="{{ "_mg.user.login.remember_me.notice"|trans }}" data-variation="inverted">
-                                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" ng-model="$form.data._remember_me">
+                                    <input type="checkbox" id="remember_me" name="_remember_me" value="on">
                                     <label for="remember_me">{{ '_mg.user.login.remember_me.label'|trans }}</label>
                                 </div>
                             </div>
 
                             <div class="action right">
-                                <button class="ui teal icon button" type="submit" id="_submit" name="_submit">
-                                    <i class="sign in icon"></i>
+                                <button class="ui black icon big button" type="submit" id="_submit" name="_submit">
                                     {{ '_mg.user.login.button.submit'|trans }}
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <a href="{{ url('mg_user_resetting_request') }}"><i class="icon exclamation"></i> {{ "_mg.user.login.button.forgot_password"|trans }}</a>
-                <a href="{{ url('mg_user_register') }}"><i class="icon exclamation"></i> {{ "_mg.user.login.button.register"|trans }}</a>
+                <a href="{{ url('fos_user_resetting_request') }}"><i class="icon warning sign"></i> {{ "_mg.user.login.button.forgot_password"|trans }}</a>
+                <a href="{{ url('fos_user_registration_register') }}"><i class="icon child"></i> {{ "_mg.user.login.button.register"|trans }}</a>
             </div>
 
             <div class="six wide column">
                 <h3 class="ui header">
                     {{ "_mg.user.oauth.header"|trans }}
-                    <span class="sub header block">{{ "_mg.user.oauth.sub_header"|trans }}</span>
+                    <div class="sub header block">{{ "_mg.user.oauth.sub_header"|trans }}</div>
                 </h3>
                 {% include "MagiceUserBundle::oauth.html.twig" %}
             </div>
         </div>
     </div>
-{% endblock mg_user_content %}
+{% endblock content %}

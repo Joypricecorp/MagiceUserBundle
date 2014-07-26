@@ -1,0 +1,22 @@
+{% set page = "mg-user-register-confirmed" %}
+{% extends "MagiceWebBundle:Frontend:layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="ui basic segment">
+            <div class="ui icon success message">
+
+                <i class="check circle icon"></i>
+
+                <div class="content">
+                    <div class="header">{{ "_mg.user.registration.confirmed.header"|trans }}</div>
+
+                    <p>{{ '_mg.user.registration.confirmed.message'|trans({'%username%': user.username})|raw }}</p>
+
+                </div>
+            </div>
+
+            <a href="{{ path('mg_account_profile') }}"><i class="setting icon"></i> {{ "_mg.user.registration.confirmed.account"|trans }}</a>
+        </div>
+    </div>
+{% endblock content %}

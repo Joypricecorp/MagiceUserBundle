@@ -1,0 +1,29 @@
+{% set page = "mg-user-resetting" %}
+{% extends "MagiceWebBundle:Frontend:layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="ui segment">
+
+            <div class="ui huge header">{{ "_mg.user.resetting.request.header"|trans }}</div>
+
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="ui large form {% if invalid_username is defined %}warning{% endif %}">
+
+                {% if invalid_username is defined %}
+                    <div class="ui warning message">
+                        <p>{{ '_mg.user.resetting.request.invalid'|trans({'%username%': invalid_username})|raw }}</p>
+                    </div>
+                {% endif %}
+
+                <div class="ui fluid action big input">
+                    <input type="text" name="username" required="required" placeholder="{{ '_mg.user.resetting.request.username'|trans }}">
+
+                    <div class="ui button">
+                        <button type="submit">{{ '_mg.user.resetting.request.submit'|trans }}</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}

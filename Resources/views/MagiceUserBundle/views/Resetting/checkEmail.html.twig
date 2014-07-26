@@ -1,0 +1,15 @@
+{% set page = "mg-user-resetting-check-email" %}
+{% extends "MagiceWebBundle:Frontend:layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="ui basic segment">
+
+            <div class="ui header huge">{{ "_mg.user.resetting.check_email.header"|trans }}</div>
+
+            <div class="ui raised stacked segment">
+                {{ '_mg.user.resetting.check_email.message'|trans({'%email%': email})|maillink|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

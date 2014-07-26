@@ -1,0 +1,24 @@
+{% set page = "mg-user-resetting-reset" %}
+{% extends "MagiceWebBundle:Frontend:layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="ui form large {{ ui_form_failure(form) }}">
+
+            {{ ui_form_errors() }}
+
+            <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST">
+
+                {{ ui_form_widget(form.plainPassword) }}
+                {{ ui_form_hiddens(form) }}
+
+                <div class="action right">
+                    <button type="submit" class="ui button">
+                        {{ '_mg.user.resetting.request.submit'|trans }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

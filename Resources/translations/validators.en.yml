@@ -1,4 +1,3 @@
-_mg:
-    user:
-        info:
-            gender.blank: Gender cannot be blank.
+_mg.user:
+    info:
+        gender.blank: Gender cannot be blank.

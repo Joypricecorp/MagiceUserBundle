@@ -1,22 +1,13 @@
 parameters:
-    magice.user.already_logedin_redirect_routes:
-        - mg_user_login
-        - mg_user_register
-        - mg_user_register_confirmed
     magice.user.already_logedin_redirect_target: ~
-    magice.user.registration.success_target_route: ~
-    magice.user.resetting.success_target_route: ~
-    magice.user.class.mailer: Magice\Bundle\UserBundle\Mailer\TwigSwiftMailer
     magice.user.class.form.registration: Magice\Bundle\UserBundle\Form\RegistrationType
     magice.user.class.form.info: Magice\Bundle\UserBundle\Form\UserInfoType
     magice.user.class.provider: Magice\Bundle\UserBundle\Entity\UserProvider
     magice.user.class.manager: Magice\Bundle\UserBundle\Entity\UserManager
-    magice.user.class.entity: Magice\Bundle\UserBundle\Entity\User
+    magice.user.class.entity.user: Magice\Bundle\UserBundle\Entity\User
+    magice.user.class.entity.group: Magice\Bundle\UserBundle\Entity\Group
     magice.user.class.repository: Magice\Bundle\UserBundle\Entity\UserRepository
-    magice.user.class.mailer.twig_swift: Magice\Bundle\UserBundle\Mailer\TwigSwift
-    magice.user.class.listener.resetting.success: Magice\Bundle\UserBundle\EventListener\ResettingSuccess
-    magice.user.class.listener.registration.success: Magice\Bundle\UserBundle\EventListener\RegistrationSuccess
-    magice.user.class.listener.already_logedin_redirect: Magice\Bundle\UserBundle\EventListener\AlreadyLogedInRedirect
+    magice.user.class.responder.facebook: Magice\Bundle\UserBundle\OAuth\Response\Facebook
 
 services:
     mg.user.repository:
@@ -25,7 +16,7 @@ services:
         factory_method: create
         arguments:
             - "@doctrine.orm.default_entity_manager"
-            - "%magice.user.class.entity%"
+            - "%magice.user.class.entity.user%"
             - "@service_container"
 
     mg.user.provider:
@@ -44,32 +35,6 @@ services:
             - "@fos_user.entity_manager"
             - "%fos_user.model.user.class%"
 
-    mg.user.listener.resetting.success:
-        class: "%magice.user.class.listener.resetting.success%"
-        arguments:
-            - "@router"
-            - "%magice.user.resetting.success_target_route%"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    mg.user.listener.registration.success:
-        class: "%magice.user.class.listener.registration.success%"
-        arguments:
-            - "@router"
-            - "%magice.user.registration.success_target_route%"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    #mg.user.listener.already_logedin_redirect:
-    #    class: "%magice.user.class.listener.already_logedin_redirect%"
-    #    arguments:
-    #        - "@security.context"
-    #        - "@router"
-    #        - "%magice.user.already_logedin_redirect_target%"
-    #        - "%magice.user.already_logedin_redirect_routes%"
-    #    tags:
-    #        - { name: kernel.event_subscriber }
-
     mg.user.form.type.registration:
         class: "%magice.user.class.form.registration%"
         arguments:
@@ -81,18 +46,3 @@ services:
         class:  "%magice.user.class.form.info%"
         tags:
             - { name: form.type, alias: mg_user_form_type_info }
-
-    mg.user.mailer.twig_swift:
-        class: "%magice.user.class.mailer%"
-        public: false
-        arguments:
-            - "@mailer"
-            - "@router"
-            - "@twig"
-            -
-                template:
-                    confirmation: "%fos_user.registration.confirmation.template%"
-                    resetting: "%fos_user.resetting.email.template%"
-                from_email:
-                    confirmation: "%fos_user.registration.confirmation.from_email%"
-                    resetting: "%fos_user.resetting.email.from_email%"

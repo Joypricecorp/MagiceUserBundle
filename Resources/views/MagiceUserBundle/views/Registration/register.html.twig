@@ -1,0 +1,82 @@
+{% set page = 'mg-user-register' %}
+{% extends "MagiceWebBundle:Frontend:layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="ui top aligned relaxed stackable grid basic segment">
+            <div class="eight wide column">
+
+                <div class="ui large header mobile only">
+                    <div class="logo"></div>
+
+                    <div class="content">
+                        {{ "_mg.user.registration.header"|trans }}
+                        <div class="sub header">{{ "_mg.user.registration.sub_header"|trans }}</div>
+                    </div>
+                </div>
+
+                <div class="ui raised stacked segment">
+
+                    <div class="ui form large {{ ui_form_failure(form) }}">
+
+                        {{ ui_form_errors() }}
+
+                        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST">
+
+                            {{ ui_form_widget(form.username, {
+                            'o:icon': 'user',
+                            'f:class_append': 'ui big input',
+                            'placeholder': "_mg.user.registration.placeholder.username"|trans
+                            }) }}
+
+                            {{ ui_form_widget(form.email, {
+                            'o:icon': 'mail',
+                            'f:class_append': 'ui big input',
+                            'placeholder': "_mg.user.registration.placeholder.email"|trans
+                            }) }}
+
+                            {{ ui_form_widget(form.plainPassword, {
+                            'o:icon': 'lock',
+                            'f:class_append': 'ui big input',
+                            'placeholder': [
+                            "_mg.user.registration.placeholder.password.first"|trans,
+                            "_mg.user.registration.placeholder.password.second"|trans
+                            ]
+                            }) }}
+
+                            {{ ui_form_hiddens(form) }}
+
+                            <div class="action right">
+                                <button type="submit" class="ui button massive green">{{ '_mg.user.registration.button.submit'|trans }}</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="eight wide column">
+
+                <div class="ui large header computer only">
+                    <div class="logo"></div>
+
+                    <div class="content">
+                        {{ "_mg.user.registration.header"|trans }}
+                        <div class="sub header">{{ "_mg.user.registration.sub_header"|trans }}</div>
+                    </div>
+                </div>
+
+                <div class="ui header">
+                    {{ "_mg.user.oauth.header"|trans }}
+                    <div class="sub header">{{ "_mg.user.oauth.sub_header"|trans }}</div>
+                </div>
+
+                {% include "MagiceUserBundle::oauth.html.twig" %}
+
+                <div class="notice">{{ "_mg.user.registration.notice"|trans|raw }}</div>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}

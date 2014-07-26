@@ -1,42 +1,84 @@
-_mg:
-    user:
-        login:
-            header: Welcome! Please enter your information.
-            button:
-                submit: Login!
-                forgot_password: Forgot password?
-                register: No account?
-            username:
-                label: "Username:"
-                placeholder: Enter your username.
+_mg.user:
+    login:
+        header: Welcome! to ツ Joyprice.ID
+        button:
+            submit: Login!
+            forgot_password: Forgot password?
+            register: No account?
+
+        username:
+            label: "Username:"
+            placeholder: Enter your username.
+
+        password:
+            label: "Password:"
+            placeholder: Enter your password.
+
+        remember_me:
+            label: "Remember me?"
+            notice: Notice!! If this's not your computer you should not remember your login.
+
+    oauth:
+        coming_zoon: Coming zoon ...
+        header: Social Login
+        sub_header: You can also use your social to register or login.
+
+        service:
+            facebook: Facebook
+            twitter: Twitter
+            google: Google
+            github: Github
+
+    registration:
+        header: Registration
+        sub_header: Create your ツ Joyprice.ID account.
+
+        check_email:
+            header: Next! Check Your Email.
+            message: |
+                An email has been sent to  <b>%email%</b>.
+                <p>It contains an activation link you must click to activate your account.</p>
+
+        confirmed:
+            header: Congratulations
+            message: <b>%username%</b>, your account is now activated.
+            account: Manage your ツ JoyPrice.ID account.
+
+        placeholder:
+            username: Pick a username
+            email: Your email
             password:
-                label: "Password:"
-                placeholder: Enter your password.
-            remember_me:
-                label: "Remember me?"
-                notice: Notice!! If this's not your computer you should not remember your login.
-        oauth:
-            coming_zoon: Coming zoon ...
-            header: Social Login
-            sub_header: You can use your socials to login to your account.
-            service:
-                facebook: Facebook
-                twitter: Twitter
-                google: Google
+                first: Create a password
+                second: Type password again
 
-        registration:
-            button:
-                submit: Register!
+        notice: |
+            By clicking "Register for ツ Joyprice.ID", or any registration gateway
+            you agree to our <a href="%term%">terms of service</a>
+            and <a href="%privacy%">privacy policy</a>.
+            We will send you account related emails occasionally.
 
-        resetting:
-            request:
-                username: Username
-                invalid_username: "\"%username%\" is not valid username."
-                button:
-                    submit: Submit
-            check_email: An email has been sent to %email%. It contains a link you must click to reset your password.
-            password_already_requested: The password for this user has already been requested within the last 24 hours.
-        change_password:
-            button:
-                submit: Save Change
-                forgot_password: Forgot password?
+        button:
+            submit: Register for ツ Joyprice.ID
+
+    resetting:
+        request:
+            header: Reset your password.
+            username: Username or Email
+            invalid: <b>%username%</b> is not valid username.
+            submit: Submit
+
+        check_email:
+            header: Next! Check your email.
+            message: |
+                An email has been sent to <b>%email%</b>.
+                <p>It contains a link you must click to reset your password.</b>
+
+        requested:
+            header: Oops! You are rock.
+            message: The password for this user has already been requested within the last 24 hours.
+
+    change_password:
+        header: Change Password
+        button:
+            submit: Submit Change
+            forgot: I forgot my password.
