@@ -4,7 +4,6 @@ namespace Magice\Bundle\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Magice\Bundle\UserBundle\Entity\UserInfoAbstract;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Table(name="mg_user_info")
