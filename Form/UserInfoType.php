@@ -64,7 +64,9 @@ class UserInfoType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class'      => $this->class,
-                'csrf_protection' => false
+                'csrf_protection' => true,
+                'csrf_field_name' => '_token',
+                'intention'       => 'update_user_info'
             )
         );
     }
