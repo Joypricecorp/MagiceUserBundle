@@ -43,6 +43,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('user')->defaultValue('Magice\Bundle\UserBundle\Entity\User')->cannotBeEmpty()->end()
                         ->scalarNode('group')->defaultValue('Magice\Bundle\UserBundle\Entity\Group')->cannotBeEmpty()->end()
+                        ->scalarNode('info')->defaultValue('Magice\Bundle\UserBundle\Model\UserInfo')->cannotBeEmpty()->end()
                         ->arrayNode('responder')
                             ->useAttributeAsKey('name')
                             ->prototype('scalar')->cannotBeEmpty()->end()

@@ -8,10 +8,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use libphonenumber\PhoneNumber;
 
 /**
- * @ORM\Table(name="mg_user_info")
- * @ORM\Entity
+ * @ORM\MappedSuperclass()
  */
-class UserInfo
+abstract class UserInfoAbstract
 {
     const YEAR_BC_DIFF = 543;
     const YEAR_MIN_AGE = 13;
@@ -20,104 +19,87 @@ class UserInfo
     use TimestampableEntity;
 
     /**
-     * @var integer
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var string
      * @ORM\Column(name="gender", type="string", length=1)
      */
-    private $gender;
+    protected $gender;
 
     /**
      * @var string
      * @ORM\Column(name="firstname", type="string", length=50)
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @var string
      * @ORM\Column(name="lastname", type="string", length=50)
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @ORM\Column(name="display_name", type="string", length=50, nullable=true)
      */
-    private $displayName;
+    protected $displayName;
 
     /**
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
-    private $avatar;
+    protected $avatar;
 
     /**
      * @var string
      * @ORM\Column(name="personal_id", type="string", length=13, nullable=true)
      */
-    private $personalId;
+    protected $personalId;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="birthday", type="date", nullable=true)
      */
-    private $birthday;
+    protected $birthday;
 
     /**
      * @var PhoneNumber
      * @ORM\Column(name="mobile", type="phone_number", nullable=true)
      */
-    private $mobile;
+    protected $mobile;
 
     /**
      * @var PhoneNumber
      * @ORM\Column(name="tel_home", type="phone_number", nullable=true)
      */
-    private $telHome;
+    protected $telHome;
 
     /**
      * @var PhoneNumber
      * @ORM\Column(name="tel_work", type="phone_number", nullable=true)
      */
-    private $telWork;
+    protected $telWork;
 
     /**
      * @var string
      * @ORM\Column(name="tel_work_ext", type="string", length=5, nullable=true)
      */
-    private $telWorkExt;
+    protected $telWorkExt;
 
     /**
      * @var string public email
      * @ORM\Column(name="email", type="string", length=50, nullable=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\User", inversedBy="info")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
-    private $user;
+    protected $user;
 
     /**
      * @var string
      * for JMS\Accessor(getter="getFullname")
      */
-    private $fullname;
-
-    /**
-     * Get id
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $fullname;
 
     /**
      * Set firstname

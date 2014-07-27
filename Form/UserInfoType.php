@@ -10,6 +10,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserInfoType extends AbstractType
 {
+    protected $class;
+
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -56,7 +63,7 @@ class UserInfoType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class'      => 'Magice\Bundle\UserBundle\Entity\UserInfo',
+                'data_class'      => $this->class,
                 'csrf_protection' => false
             )
         );

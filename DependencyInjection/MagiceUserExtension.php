@@ -39,6 +39,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         // use the Configuration class to generate a config array with the settings
         $config = $this->processConfiguration(new Configuration(), $config);
 
+
         $this->forFosUser($container, $config);
         $this->forHwiOauth($container, $config);
         $this->forDoctrine($container, $config);
@@ -76,14 +77,33 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                 )
             ),
             'orm'  => array(
-                'filters' => array(
+                'filters'                 => array(
                     'softdeleteable' => array(
                         'class'   => $config['class']['doctrine']['softdeleteable'],
                         'enabled' => true
                     )
+                ),
+                # http://symfony.com/doc/current/cookbook/doctrine/resolve_target_entity.html
+                'resolve_target_entities' => array(
+                    'Magice\Bundle\UserBundle\Entity\UserInfoAbstract' => $config['class']['info']
                 )
             )
         );
+
+        if ($config['class']['info'] === 'Magice\Bundle\UserBundle\Model\UserInfo') {
+
+            $dir = '%kernel.root_dir%/../vendor/magice/user-bundle/Magice/Bundle/UserBundle/Model';
+
+            $defaults['orm']['mappings'] = array(
+                'userinfo' => array(
+                    'type'   => 'annotation',
+                    'dir'    => $dir,
+                    'prefix' => 'Magice\Bundle\UserBundle\Model'
+                )
+            );
+        }
+
+        $container->setParameter('magice.user.class.entity.info', $config['class']['info']);
 
         $config = $container->getExtensionConfig($name);
         $config = array_replace_recursive($defaults, $config[0]);

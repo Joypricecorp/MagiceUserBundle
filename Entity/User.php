@@ -29,12 +29,12 @@ class User extends BaseUser
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Magice\Bundle\UserBundle\Entity\UserConnect", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Magice\Bundle\UserBundle\Entity\UserConnect", mappedBy="user", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $connects;
 
     /**
-     * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\UserInfo", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\UserInfoAbstract", mappedBy="user", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $info;
 
@@ -48,8 +48,6 @@ class User extends BaseUser
         parent::__construct();
 
         $this->connects = new ArrayCollection();
-        //$this->address  = new ArrayCollection();
-        //$this->bankings = new ArrayCollection();
     }
 
     /**

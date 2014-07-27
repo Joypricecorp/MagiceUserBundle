@@ -24,15 +24,22 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
     protected $container;
 
     /**
+     * @var string
+     */
+    protected $userInfoClass;
+
+    /**
      * Constructor.
      *
      * @param UserConnectManagerInterface $userManager FOSUB user provider.
      * @param ContainerInterface          $container
+     * @param string                      $userInfoClass
      */
-    public function __construct(UserConnectManagerInterface $userManager, ContainerInterface $container)
+    public function __construct(UserConnectManagerInterface $userManager, ContainerInterface $container, $userInfoClass)
     {
-        $this->userManager = $userManager;
-        $this->container   = $container;
+        $this->userManager   = $userManager;
+        $this->container     = $container;
+        $this->userInfoClass = $userInfoClass;
     }
 
     /**
@@ -198,7 +205,8 @@ class UserProvider extends FOSUBUserProvider implements UserProviderInterface
             return;
         }
 
-        $info = (new UserInfo())
+        $class = $this->userInfoClass;
+        $info  = (new $class())
             ->setUser($user)
             ->setAvatar($response->getProfilePicture())
             ->setDisplayName($response->getNickname())
