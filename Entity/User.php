@@ -114,11 +114,11 @@ class User extends BaseUser
     }
 
     /**
-     * @param UserInfo $info
+     * @param UserInfoAbstract $info
      *
      * @return $this
      */
-    public function setInfo(UserInfo $info)
+    public function setInfo(UserInfoAbstract $info)
     {
         $this->info = $info;
 
@@ -126,7 +126,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return UserInfo
+     * @return UserInfoAbstract
      */
     public function getInfo()
     {
