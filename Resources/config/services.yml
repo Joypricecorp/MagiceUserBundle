@@ -2,11 +2,12 @@ parameters:
     magice.user.already_logedin_redirect_target: ~
     magice.user.class.form.registration: Magice\Bundle\UserBundle\Form\RegistrationType
     magice.user.class.form.info: Magice\Bundle\UserBundle\Form\UserInfoType
-    magice.user.class.provider: Magice\Bundle\UserBundle\Entity\UserProvider
-    magice.user.class.manager: Magice\Bundle\UserBundle\Entity\UserManager
-    magice.user.class.entity.user: Magice\Bundle\UserBundle\Entity\User
-    magice.user.class.entity.group: Magice\Bundle\UserBundle\Entity\Group
-    magice.user.class.repository: Magice\Bundle\UserBundle\Entity\UserRepository
+    magice.user.class.provider: Magice\Bundle\UserBundle\Model\UserProvider
+    magice.user.class.manager: Magice\Bundle\UserBundle\Model\UserManager
+    magice.user.class.entity.user: ~
+    magice.user.class.entity.group: ~
+    magice.user.class.entity.info: ~
+    magice.user.class.repository: Magice\Bundle\UserBundle\Model\UserRepository
     magice.user.class.responder.facebook: Magice\Bundle\UserBundle\OAuth\Response\Facebook
 
 services:

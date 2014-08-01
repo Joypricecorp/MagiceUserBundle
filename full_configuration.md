@@ -55,9 +55,9 @@ hwi_oauth:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: Magice\Bundle\UserBundle\Entity\User
+    user_class: Magice\Bundle\UserBundle\Model\User
     group:
-        group_class: Magice\Bundle\UserBundle\Entity\Group
+        group_class: Magice\Bundle\UserBundle\Model\Group
     registration:
         form:
             type: mg_user_form_type_registration

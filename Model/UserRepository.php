@@ -1,5 +1,5 @@
 <?php
-namespace Magice\Bundle\UserBundle\Entity;
+namespace Magice\Bundle\UserBundle\Model;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -1,4 +1,4 @@
-Magice\Bundle\UserBundle\Entity\UserInfo:
+Magice\Bundle\UserBundle\Model\UserInfo:
     properties:
         gender:
             - NotBlank:

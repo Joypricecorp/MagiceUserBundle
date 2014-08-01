@@ -2,7 +2,7 @@
 
 namespace Magice\Bundle\UserBundle\Form;
 
-use Magice\Bundle\UserBundle\Entity\UserInfo;
+use Magice\Bundle\UserBundle\Model\UserInfo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;

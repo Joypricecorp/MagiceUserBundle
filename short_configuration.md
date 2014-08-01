@@ -40,8 +40,8 @@ magice_user:
             type: xxx
             
     class:
-        user: Magice\Bundle\UserBundle\Entity\User
-        group: Magice\Bundle\UserBundle\Entity\Group
+        user: Magice\Bundle\UserBundle\Model\User
+        group: Magice\Bundle\UserBundle\Model\Group
         
         # oauth respons handle (hwi_oauth bundle)
         responder:

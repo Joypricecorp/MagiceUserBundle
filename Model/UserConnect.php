@@ -1,5 +1,5 @@
 <?php
-namespace Magice\Bundle\UserBundle\Entity;
+namespace Magice\Bundle\UserBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -101,7 +101,7 @@ class UserConnect
     private $provider;
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Magice\Bundle\UserBundle\Entity\User", inversedBy="connects")
+     * @ORM\ManyToOne(targetEntity="Magice\Bundle\UserBundle\Model\User", inversedBy="connects")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;

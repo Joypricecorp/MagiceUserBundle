@@ -1,5 +1,5 @@
 <?php
-namespace Magice\Bundle\UserBundle\Entity;
+namespace Magice\Bundle\UserBundle\Model;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseUserManger;
 
@@ -56,6 +56,6 @@ class UserManager extends BaseUserManger implements UserConnectManagerInterface
 
     public static function getUserConnectClass()
     {
-        return 'Magice\Bundle\UserBundle\Entity\UserConnect';
+        return 'Magice\Bundle\UserBundle\Model\UserConnect';
     }
 }

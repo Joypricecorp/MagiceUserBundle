@@ -1,14 +1,13 @@
 <?php
-namespace Magice\Bundle\UserBundle\Entity;
+namespace Magice\Bundle\UserBundle\Model;
 
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="mg_user_group")
+ * @ORM\MappedSuperclass()
  */
-class Group extends BaseGroup
+abstract class Group extends BaseGroup
 {
     /**
      * @ORM\Id

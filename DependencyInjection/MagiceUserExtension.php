@@ -28,7 +28,6 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
     /**
      * Allow an extension to prepend the extension configurations.
-     *
      * @param ContainerBuilder $container
      */
     public function prepend(ContainerBuilder $container)
@@ -85,25 +84,51 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                 ),
                 # http://symfony.com/doc/current/cookbook/doctrine/resolve_target_entity.html
                 'resolve_target_entities' => array(
-                    'Magice\Bundle\UserBundle\Entity\UserInfoAbstract' => $config['class']['info']
+                    'Magice\Bundle\UserBundle\Model\Group'    => $config['class']['group'],
+                    'Magice\Bundle\UserBundle\Model\User'     => $config['class']['user'],
+                    'Magice\Bundle\UserBundle\Model\UserInfo' => $config['class']['info'],
                 )
             )
         );
 
-        if ($config['class']['info'] === 'Magice\Bundle\UserBundle\Model\UserInfo') {
+        $dir                         = '%kernel.root_dir%/../vendor/magice/user-bundle/Magice/Bundle/UserBundle/Model';
+        $defaults['orm']['mappings'] = array(
+            'default_usergroup' => array(
+                'type'   => 'annotation',
+                'dir'    => $dir,
+                'prefix' => 'Magice\Bundle\UserBundle\Model'
+            )
+        );
 
-            $dir = '%kernel.root_dir%/../vendor/magice/user-bundle/Magice/Bundle/UserBundle/Model';
+        $useDefaultEntity = false;
+        $container->setParameter('magice.user.class.entity.group', $config['class']['group']);
+        $container->setParameter('magice.user.class.entity.info', $config['class']['info']);
+        $container->setParameter('magice.user.class.entity.user', $config['class']['user']);
 
-            $defaults['orm']['mappings'] = array(
-                'userinfo' => array(
-                    'type'   => 'annotation',
-                    'dir'    => $dir,
-                    'prefix' => 'Magice\Bundle\UserBundle\Model'
-                )
-            );
+        // default group
+        if ($config['class']['group'] === 'Magice\Bundle\UserBundle\DefaultEntity\Group') {
+            $useDefaultEntity = true;
         }
 
-        $container->setParameter('magice.user.class.entity.info', $config['class']['info']);
+        // default user
+        if ($config['class']['user'] === 'Magice\Bundle\UserBundle\DefaultEntity\User') {
+            $useDefaultEntity = true;
+        }
+
+        // default user info
+        if ($config['class']['info'] === 'Magice\Bundle\UserBundle\DefaultEntity\UserInfo') {
+            $useDefaultEntity = true;
+        }
+
+        if ($useDefaultEntity) {
+            $dir = '%kernel.root_dir%/../vendor/magice/user-bundle/Magice/Bundle/UserBundle/DefaultEntity';
+
+            $defaults['orm']['mappings']['default_user'] = array(
+                'type'   => 'annotation',
+                'dir'    => $dir,
+                'prefix' => 'Magice\Bundle\UserBundle\DefaultEntity'
+            );
+        }
 
         $config = $container->getExtensionConfig($name);
         $config = array_replace_recursive($defaults, $config[0]);

@@ -1,15 +1,14 @@
 <?php
-namespace Magice\Bundle\UserBundle\Entity;
+namespace Magice\Bundle\UserBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Magice\Bundle\UserBundle\Entity\UserRepository")
- * @ORM\Table(name="mg_user")
+ * @ORM\MappedSuperclass()
  */
-class User extends BaseUser
+abstract class User extends BaseUser
 {
     /**
      * @ORM\Id
@@ -19,7 +18,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Magice\Bundle\UserBundle\Entity\Group")
+     * @ORM\ManyToMany(targetEntity="Magice\Bundle\UserBundle\Model\Group")
      * @ORM\JoinTable(name="mg_user_group_map",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -29,12 +28,12 @@ class User extends BaseUser
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Magice\Bundle\UserBundle\Entity\UserConnect", mappedBy="user", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Magice\Bundle\UserBundle\Model\UserConnect", mappedBy="user", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $connects;
 
     /**
-     * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Entity\UserInfoAbstract", mappedBy="user", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Magice\Bundle\UserBundle\Model\UserInfo", mappedBy="user", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $info;
 
