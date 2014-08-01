@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
 
                 ->scalarNode('path_prefix')->defaultValue('/user')->end()
                 ->scalarNode('firewall')->defaultValue('magice')->end()
+                ->scalarNode('firewall_pattern')->defaultValue('/.*')->cannotBeEmpty()->end()
                 ->scalarNode('provider')->defaultValue('mg.user.provider')->end()
                 ->scalarNode('confirmation')->defaultValue(true)->end()
                 ->scalarNode('username_iterations')->defaultValue(30)->end()

@@ -162,7 +162,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
             'firewalls' => array(
                 'magice' => array(
                     'context'     => 'user',
-                    'pattern'     => '/.*',
+                    'pattern'     => $config['firewall_pattern'],
                     'form_login'  => array(
                         'provider'            => 'fos_userbundle',
                         'csrf_provider'       => 'form.csrf_provider',
