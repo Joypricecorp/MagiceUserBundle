@@ -38,6 +38,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('confirmation')->defaultValue(true)->end()
                 ->scalarNode('username_iterations')->defaultValue(30)->end()
                 ->scalarNode('remember_lifetime')->defaultValue(31536000)->end()
+                ->scalarNode('remember_param_name')->defaultValue('_remember_me')->end()
+                ->scalarNode('remember_cookie_name')->defaultValue('MAGICE_REMEMBER_ME')->end()
 
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
