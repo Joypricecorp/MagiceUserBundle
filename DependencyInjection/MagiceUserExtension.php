@@ -91,7 +91,8 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
             )
         );
 
-        $dir                         = '%kernel.root_dir%/../vendor/magice/user-bundle/Magice/Bundle/UserBundle/Model';
+        $dir = '%kernel.root_dir%/../vendor/magice/user-bundle/Magice/Bundle/UserBundle/Model';
+
         $defaults['orm']['mappings'] = array(
             'default_usergroup' => array(
                 'type'   => 'annotation',
@@ -102,8 +103,8 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
         $useDefaultEntity = false;
         $container->setParameter('magice.user.class.entity.group', $config['class']['group']);
-        $container->setParameter('magice.user.class.entity.info', $config['class']['info']);
         $container->setParameter('magice.user.class.entity.user', $config['class']['user']);
+        $container->setParameter('magice.user.class.entity.info', $config['class']['info']);
 
         // default group
         if ($config['class']['group'] === 'Magice\Bundle\UserBundle\DefaultEntity\Group') {

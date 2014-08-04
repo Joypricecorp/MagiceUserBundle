@@ -25,7 +25,7 @@ services:
         arguments:
             - "@mg.user.manager"
             - "@service_container"
-            - "%%magice.user.class.entity.info%"
+            - "%magice.user.class.entity.info%"
 
     mg.user.manager:
         class: "%magice.user.class.manager%"
