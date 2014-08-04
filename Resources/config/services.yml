@@ -4,9 +4,9 @@ parameters:
     magice.user.class.form.info: Magice\Bundle\UserBundle\Form\UserInfoType
     magice.user.class.provider: Magice\Bundle\UserBundle\Model\UserProvider
     magice.user.class.manager: Magice\Bundle\UserBundle\Model\UserManager
-    magice.user.class.entity.user: ~
-    magice.user.class.entity.group: ~
-    magice.user.class.entity.info: ~
+    #magice.user.class.entity.user: ~
+    #magice.user.class.entity.group: ~
+    #magice.user.class.entity.info: ~
     magice.user.class.repository: Magice\Bundle\UserBundle\Model\UserRepository
     magice.user.class.responder.facebook: Magice\Bundle\UserBundle\OAuth\Response\Facebook
 
