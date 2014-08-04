@@ -28,26 +28,18 @@
                             <div class="field">
                                 <label for="username">{{ '_mg.user.login.username.label'|trans }}</label>
 
-                                <div class="ui left labeled icon input">
+                                <div class="ui left labeled icon large input">
                                     <input placeholder="{{ "_mg.user.login.username.placeholder"|trans }}" type="text" id="username" name="_username" value="{{ last_username }}" required="required">
                                     <i class="user icon"></i>
-
-                                    <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label for="password">{{ '_mg.user.login.password.label'|trans }}</label>
 
-                                <div class="ui left labeled icon input">
-                                    <input placeholder="{{ "_mg.user.login.password.placeholder"|trans }}" type="text" id="password" name="_password" required="required" autocomplete="off">
+                                <div class="ui left labeled icon large input">
+                                    <input placeholder="{{ "_mg.user.login.password.placeholder"|trans }}" type="password" id="password" name="_password" required="required" autocomplete="off">
                                     <i class="lock icon"></i>
-
-                                    <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
                                 </div>
                             </div>
 
@@ -59,7 +51,7 @@
                             </div>
 
                             <div class="action right">
-                                <button class="ui black icon big button" type="submit" id="_submit" name="_submit">
+                                <button class="ui black big button" type="submit" id="_submit" name="_submit">
                                     {{ '_mg.user.login.button.submit'|trans }}
                                 </button>
                             </div>
