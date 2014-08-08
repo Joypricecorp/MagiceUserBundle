@@ -12,10 +12,9 @@ class SecurityController extends BaseSecurityController
     {
         $securityContext = $this->container->get('security.context');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $url = $request->getBaseUrl();
             if ($target = $this->container->getParameter('magice.user.already_logedin_redirect_target')) {
-                $url = $this->container->get('router')->generate($target);
-            } else {
-                $url = $request->getBaseUrl();
+                $url = $request->getBaseUrl() . $target;
             }
 
             return new RedirectResponse($url);
@@ -36,7 +35,7 @@ class SecurityController extends BaseSecurityController
             $error = null;
         }
 
-         // https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/a_note_about_security.md
+        // https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/a_note_about_security.md
         if ($session->has('_security.target_path')) {
             if (false !== strpos($session->get('_security.target_path'), $this->generateUrl('fos_oauth_server_authorize'))) {
                 $session->set('_fos_oauth_server.ensure_logout', true);
@@ -55,10 +54,12 @@ class SecurityController extends BaseSecurityController
             ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
             : null;
 
-        return $this->renderLogin(array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-            'csrf_token' => $csrfToken,
-        ));
+        return $this->renderLogin(
+            array(
+                'last_username' => $lastUsername,
+                'error'         => $error,
+                'csrf_token'    => $csrfToken,
+            )
+        );
     }
 }

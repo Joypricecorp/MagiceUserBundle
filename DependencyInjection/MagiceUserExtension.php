@@ -139,6 +139,8 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
     private function forSecurity(ContainerBuilder $container, array $config)
     {
+        $container->setParameter('magice.user.already_logedin_redirect_target', $config['already_logedin_redirect_path']);
+
         # not use build-in firewall
         if ($config['firewall'] !== 'magice') {
             return;

@@ -1,5 +1,5 @@
 parameters:
-    magice.user.already_logedin_redirect_target: ~
+    magice.user.already_logedin_redirect_target: /
     magice.user.class.form.registration: Magice\Bundle\UserBundle\Form\RegistrationType
     magice.user.class.form.info: Magice\Bundle\UserBundle\Form\UserInfoType
     magice.user.class.provider: Magice\Bundle\UserBundle\Model\UserProvider

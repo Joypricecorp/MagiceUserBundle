@@ -12,10 +12,9 @@ class RegistrationController extends BaseRegistrationController
     {
         $securityContext = $this->container->get('security.context');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $url = $request->getBaseUrl();
             if ($target = $this->container->getParameter('magice.user.already_logedin_redirect_target')) {
-                $url = $this->container->get('router')->generate($target);
-            } else {
-                $url = $request->getBaseUrl();
+                $url = $request->getBaseUrl() . $target;
             }
 
             return new RedirectResponse($url);
