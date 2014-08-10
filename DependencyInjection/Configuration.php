@@ -12,6 +12,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    const FIREWALL_NAME = 'magice_user';
+
     /**
      * {@inheritDoc}
      */
@@ -33,7 +35,7 @@ class Configuration implements ConfigurationInterface
 
                 ->scalarNode('path_prefix')->defaultValue('/user')->end()
                 ->scalarNode('already_logedin_redirect_path')->defaultValue('/')->end()
-                ->scalarNode('firewall')->defaultValue('magice_user')->end()
+                ->scalarNode('firewall')->defaultValue(self::FIREWALL_NAME)->end()
                 ->scalarNode('firewall_pattern')->defaultValue('/.*')->cannotBeEmpty()->end()
                 ->scalarNode('provider')->defaultValue('mg.user.provider')->end()
                 ->scalarNode('confirmation')->defaultValue(true)->end()

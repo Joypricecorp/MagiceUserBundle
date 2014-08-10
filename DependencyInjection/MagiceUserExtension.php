@@ -142,7 +142,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
         $container->setParameter('magice.user.already_logedin_redirect_target', $config['already_logedin_redirect_path']);
 
         # not use build-in firewall
-        if ($config['firewall'] !== 'magice_user') {
+        if ($config['firewall'] !== Configuration::FIREWALL_NAME) {
             return;
         }
 
@@ -163,7 +163,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                 'fos_userbundle' => array('id' => 'fos_user.user_provider.username_email')
             ),
             'firewalls' => array(
-                'magice_user' => array(
+                Configuration::FIREWALL_NAME => array(
                     'context'     => 'user',
                     'pattern'     => $config['firewall_pattern'],
                     'form_login'  => array(
