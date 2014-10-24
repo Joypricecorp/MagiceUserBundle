@@ -274,6 +274,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
             $container->setParameter('magice.user.class.responder.facebook', $config['facebook']['user_response_class']);
         }
+        
         # Shorthand for Google
         if (isset($config['google'])) {
             $properties['google']      = 'google';
@@ -282,6 +283,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
             $container->setParameter('magice.user.class.responder.google', $config['google']['user_response_class']);
         }
+        
         # Shorthand for Github
         if (isset($config['github'])) {
             $properties['github']      = 'github';
@@ -290,7 +292,8 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
             $container->setParameter('magice.user.class.responder.github', $config['github']['user_response_class']);
         }
-        # Shorthand for Github
+        
+        # Shorthand for Vkontakte
         if (isset($config['vkontakte'])) {
             $properties['vkontakte']      = 'vkontakte';
             $config['vkontakte']['type']  = 'vkontakte';
