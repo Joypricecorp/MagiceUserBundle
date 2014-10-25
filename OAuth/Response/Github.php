@@ -68,11 +68,6 @@ class Github extends PathUserResponse implements ResponseInterface
         return $this->getValueForPath('first_name');
     }
 
-    public function getProfile()
-    {
-        return 'https://vk.com/'.$this->getValueForPath('profile');
-    }
-
     public function getGender()
     {
         if ($gender = $this->getValueForPath('gender')) {
