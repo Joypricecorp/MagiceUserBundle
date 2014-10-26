@@ -12,9 +12,10 @@ class Google extends PathUserResponse implements ResponseInterface
         'access_token'        => 'access_token',
         'access_token_expire' => 'access_token_expire',
         'locale'              => 'locale',
-        'location'            => 'currentLocation', // location.name
+        'profile'             => 'link',
         'first_name'          => 'given_name',
         'last_name'           => 'family_name',
+        'gender'              => 'gender',
         'birthday'            => 'birthday',
     );
 

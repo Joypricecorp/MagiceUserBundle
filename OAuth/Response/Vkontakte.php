@@ -6,9 +6,6 @@ use HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse;
 class Vkontakte extends PathUserResponse implements ResponseInterface
 {
     protected $paths = array(
-        //'identifier'          => 'id',
-        //'nickname'            => 'username',
-        //'realname'            => 'name',
         'email'               => 'email',
         'username'            => 'email',
         'profilepicture'      => 'response.0.photo_50',

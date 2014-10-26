@@ -8,6 +8,8 @@ class Github extends PathUserResponse implements ResponseInterface
 
     protected $paths = array(
         'username'            => 'email',
+        'profile'             => 'html_url',
+        'location'            => 'location',
     );
 
     public function getProvider()
@@ -66,6 +68,11 @@ class Github extends PathUserResponse implements ResponseInterface
     public function getFirstName()
     {
         return $this->getValueForPath('first_name');
+    }
+
+    public function getProfile()
+    {
+        return $this->getValueForPath('profile');
     }
 
     public function getGender()
