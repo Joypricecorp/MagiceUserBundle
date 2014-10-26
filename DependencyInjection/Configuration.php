@@ -12,8 +12,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    const FIREWALL_NAME = 'magice_user';
-
     /**
      * {@inheritDoc}
      */
@@ -34,8 +32,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
 
                 ->scalarNode('path_prefix')->defaultValue('/user')->end()
-                ->scalarNode('already_logedin_redirect_path')->defaultValue('/')->end()
-                ->scalarNode('firewall')->defaultValue(self::FIREWALL_NAME)->end()
+                ->scalarNode('firewall')->defaultValue('magice')->end()
                 ->scalarNode('firewall_pattern')->defaultValue('/.*')->cannotBeEmpty()->end()
                 ->scalarNode('provider')->defaultValue('mg.user.provider')->end()
                 ->scalarNode('confirmation')->defaultValue(true)->end()
@@ -144,6 +141,9 @@ class Configuration implements ConfigurationInterface
         ;
 
         $this->shorthandOauthFacebook($rootNode);
+        $this->shorthandOauthGoogle($rootNode);
+        $this->shorthandOauthGithub($rootNode);
+        $this->shorthandOauthVkontakte($rootNode);
 
         return $treeBuilder;
     }
@@ -168,6 +168,147 @@ class Configuration implements ConfigurationInterface
 
                         ->scalarNode('user_response_class')
                             ->defaultValue('Magice\Bundle\UserBundle\OAuth\Response\Facebook')
+                            ->cannotBeEmpty()
+                        ->end()
+
+                        ->scalarNode('service')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function shorthandOauthGoogle(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('google')
+                    ->children()
+                        ->scalarNode('client_id')->cannotBeEmpty()->end()
+                        ->scalarNode('client_secret')->cannotBeEmpty()->end()
+
+                        ->scalarNode('scope')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                        ->scalarNode('user_response_class')
+                            ->defaultValue('Magice\Bundle\UserBundle\OAuth\Response\Google')
+                            ->cannotBeEmpty()
+                        ->end()
+
+                        ->scalarNode('service')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function shorthandOauthGithub(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('github')
+                    ->children()
+                        ->scalarNode('client_id')->cannotBeEmpty()->end()
+                        ->scalarNode('client_secret')->cannotBeEmpty()->end()
+
+                        ->scalarNode('scope')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                        ->scalarNode('user_response_class')
+                            ->defaultValue('Magice\Bundle\UserBundle\OAuth\Response\Github')
+                            ->cannotBeEmpty()
+                        ->end()
+
+                        ->scalarNode('service')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function shorthandOauthVkontakte(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('vkontakte')
+                    ->children()
+                        ->scalarNode('client_id')->cannotBeEmpty()->end()
+                        ->scalarNode('client_secret')->cannotBeEmpty()->end()
+
+                        ->scalarNode('scope')
+                            ->validate()
+                                ->ifTrue(function($v) {
+                                        return empty($v);
+                                    })
+                                ->thenUnset()
+                            ->end()
+                        ->end()
+                        ->arrayNode('paths')
+                            ->useAttributeAsKey('name')
+                            ->prototype('variable')
+                                ->validate()
+                                    ->ifTrue(function($v) {
+                                        if (null === $v) {
+                                            return true;
+                                        }
+
+                                        if (is_array($v)) {
+                                            return 0 === count($v);
+                                        }
+
+                                        if (is_string($v)) {
+                                            return empty($v);
+                                        }
+
+                                        return !is_numeric($v);
+                                    })
+                                    ->thenInvalid('Path can be only string or array type.')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('options')
+                            ->useAttributeAsKey('name')
+                            ->prototype('scalar')->end()
+                        ->end()
+
+                        ->scalarNode('user_response_class')
+                            ->defaultValue('Magice\Bundle\UserBundle\OAuth\Response\Vkontakte')
                             ->cannotBeEmpty()
                         ->end()
 

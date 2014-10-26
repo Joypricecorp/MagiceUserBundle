@@ -2,11 +2,11 @@
 
 namespace Magice\Bundle\UserBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -37,6 +37,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
         // use the Configuration class to generate a config array with the settings
         $config = $this->processConfiguration(new Configuration(), $config);
+
 
         $this->forFosUser($container, $config);
         $this->forHwiOauth($container, $config);
@@ -138,10 +139,8 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
 
     private function forSecurity(ContainerBuilder $container, array $config)
     {
-        $container->setParameter('magice.user.already_logedin_redirect_target', $config['already_logedin_redirect_path']);
-
         # not use build-in firewall
-        if ($config['firewall'] !== Configuration::FIREWALL_NAME) {
+        if ($config['firewall'] !== 'magice') {
             return;
         }
 
@@ -162,7 +161,7 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
                 'fos_userbundle' => array('id' => 'fos_user.user_provider.username_email')
             ),
             'firewalls' => array(
-                Configuration::FIREWALL_NAME => array(
+                'magice' => array(
                     'context'     => 'user',
                     'pattern'     => $config['firewall_pattern'],
                     'form_login'  => array(
@@ -274,6 +273,33 @@ class MagiceUserExtension extends Extension implements PrependExtensionInterface
             $config['oauth']['facebook'] = $config['facebook'];
 
             $container->setParameter('magice.user.class.responder.facebook', $config['facebook']['user_response_class']);
+        }
+        
+        # Shorthand for Google
+        if (isset($config['google'])) {
+            $properties['google']      = 'google';
+            $config['google']['type']  = 'google';
+            $config['oauth']['google'] = $config['google'];
+
+            $container->setParameter('magice.user.class.responder.google', $config['google']['user_response_class']);
+        }
+        
+        # Shorthand for Github
+        if (isset($config['github'])) {
+            $properties['github']      = 'github';
+            $config['github']['type']  = 'github';
+            $config['oauth']['github'] = $config['github'];
+
+            $container->setParameter('magice.user.class.responder.github', $config['github']['user_response_class']);
+        }
+        
+        # Shorthand for Vkontakte
+        if (isset($config['vkontakte'])) {
+            $properties['vkontakte']      = 'vkontakte';
+            $config['vkontakte']['type']  = 'vkontakte';
+            $config['oauth']['vkontakte'] = $config['vkontakte'];
+
+            $container->setParameter('magice.user.class.responder.vkontakte', $config['vkontakte']['user_response_class']);
         }
 
         $defaults = array(

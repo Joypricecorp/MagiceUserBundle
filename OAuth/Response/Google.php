@@ -3,29 +3,25 @@ namespace Magice\Bundle\UserBundle\OAuth\Response;
 
 use HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse;
 
-class Facebook extends PathUserResponse implements ResponseInterface
+class Google extends PathUserResponse implements ResponseInterface
 {
     protected $paths = array(
         'identifier'          => 'id',
-        'nickname'            => 'username',
-        'realname'            => 'name',
-        'email'               => 'email',
-        'username'            => 'email',
-        'profilepicture'      => null,
+        'email'               => 'email0',
+        'username'            => 'name',
         'access_token'        => 'access_token',
         'access_token_expire' => 'access_token_expire',
-        'profile'             => 'link',
         'locale'              => 'locale',
-        'location'            => 'location', // location.name
+        'profile'             => 'link',
+        'first_name'          => 'given_name',
+        'last_name'           => 'family_name',
         'gender'              => 'gender',
-        'first_name'          => 'first_name',
-        'last_name'           => 'last_name',
         'birthday'            => 'birthday',
     );
 
     public function getProvider()
     {
-        return 'facebook';
+        return 'google';
     }
 
     public function getId()
@@ -94,11 +90,6 @@ class Facebook extends PathUserResponse implements ResponseInterface
         } else {
             return 'M';
         }
-    }
-
-    public function getProfilePicture()
-    {
-        return sprintf('https://graph.facebook.com/%s/picture?type=square', $this->getId());
     }
 
     public function getAccessToken()

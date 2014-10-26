@@ -3,29 +3,26 @@ namespace Magice\Bundle\UserBundle\OAuth\Response;
 
 use HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse;
 
-class Facebook extends PathUserResponse implements ResponseInterface
+class Vkontakte extends PathUserResponse implements ResponseInterface
 {
     protected $paths = array(
-        'identifier'          => 'id',
-        'nickname'            => 'username',
-        'realname'            => 'name',
         'email'               => 'email',
         'username'            => 'email',
-        'profilepicture'      => null,
+        'profilepicture'      => 'response.0.photo_50',
         'access_token'        => 'access_token',
         'access_token_expire' => 'access_token_expire',
-        'profile'             => 'link',
+        'profile'             => 'response.0.screen_name',
         'locale'              => 'locale',
-        'location'            => 'location', // location.name
-        'gender'              => 'gender',
-        'first_name'          => 'first_name',
-        'last_name'           => 'last_name',
-        'birthday'            => 'birthday',
+        'location'            => 'response.0.country', // location.name
+        'gender'              => 'response.0.sex',
+        'first_name'          => 'response.0.first_name',
+        'last_name'           => 'response.0.last_name',
+        'birthday'            => 'response.0.bdate',
     );
 
     public function getProvider()
     {
-        return 'facebook';
+        return 'vkontakte';
     }
 
     public function getId()
@@ -47,6 +44,7 @@ class Facebook extends PathUserResponse implements ResponseInterface
     public function getBirthday()
     {
         if ($birthday = $this->getValueForPath('birthday')) {
+            $birthday = str_replace('.', '-', $birthday);
             return new \DateTime(date('Y-m-d', strtotime($birthday)));
         } else {
             return null;
@@ -83,22 +81,17 @@ class Facebook extends PathUserResponse implements ResponseInterface
 
     public function getProfile()
     {
-        return $this->getValueForPath('profile');
+        return 'https://vk.com/'.$this->getValueForPath('profile');
     }
 
     public function getGender()
     {
         if ($gender = $this->getValueForPath('gender')) {
-            // M,F
-            return strtoupper($gender[0]);
+            if ($gender === 2 || $gender === 0) return 'M';
+            if ($gender === 1) return 'F';
         } else {
             return 'M';
         }
-    }
-
-    public function getProfilePicture()
-    {
-        return sprintf('https://graph.facebook.com/%s/picture?type=square', $this->getId());
     }
 
     public function getAccessToken()
